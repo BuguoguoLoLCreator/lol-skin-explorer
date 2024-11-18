@@ -1,5 +1,4 @@
 import BaseDocument, { Html, Head, Main, NextScript } from "next/document";
-console.log('Environment:', process.env.NEXT_PUBLIC_VERCEL_ENV);
 
 class Document extends BaseDocument {
   render() {
@@ -38,7 +37,7 @@ class Document extends BaseDocument {
             <>
               <script
                 async
-                charset="UTF-8"
+                charSet="UTF-8"
                 id="LA_COLLECT"
                 src="//sdk.51.la/js-sdk-pro.min.js?id=K1QCVeoD2crlitVA&ck=K1QCVeoD2crlitVA&autoTrack=true&hashMode=true"
               />

@@ -92,11 +92,20 @@ export function Popup({ skin }) {
           )}
         </>
       )}
-      <a href={meta.skinSpotlightsUrl} target="_blank" rel="noreferrer">
+      <a href={`https://voice.buguoguo.cn/#/voice/${meta.champion.id}`} target="_blank" rel="noreferrer">
+        <h3>
+          <span>
+            <Box />
+            去语音站收听{meta.champion.name}的语音
+          </span>
+          <ExternalLink />
+        </h3>
+      </a>
+      <a href={meta.skinVideoUrl} target="_blank" rel="noreferrer">
         <h3>
           <span>
             <Video />
-            在哔哩哔哩查看SkinSpotlights皮肤视频
+            去哔哩哔哩查看该皮肤演示视频
           </span>
           <ExternalLink />
         </h3>
@@ -105,7 +114,7 @@ export function Popup({ skin }) {
         <h3>
           <span>
             <Box />
-            在Khada查看3D模型
+            去Khada查看{meta.champion.name}的3D模型
           </span>
           <ExternalLink />
         </h3>

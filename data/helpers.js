@@ -1,4 +1,5 @@
 import { CDRAGON, ROOT } from "./constants";
+import { store } from "./store";
 import { useProps } from "./contexts";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
@@ -35,17 +36,33 @@ export function dataRoot(patch = "pbe") {
 
 
 function bala(skinPath, patch){
-  // 负责英雄名=>英雄id
-  const {champions} = useProps()
+  // 如果版本号大于 14.9 则直接返回
+  if (isGreaterThan14dot9(patch)) return skinPath
 
-  const isGreaterThan14dot9 = true
-  // 从skinPath抽取皮肤ID
-  // 现在通过英雄ID 皮肤ID patch拼凑路径
+  // 获取 aatrox_splash_centered_1.jpg 字符串
+  const championSkinPath = skinPath.split('/').pop()
+  // 判断是否为 uncentered
+  const isUncentered = skinPath.includes('uncentered')
+  // 正则判断获取英雄名字
+  const regChampionMatch = championSkinPath.match(/^([a-zA-Z]+)_/)
+  // 获取皮肤的序列号
+  const regSkinMatch = skinPath.toLowerCase().match(/(?:skin(\d{2})|base)/)
+  let skinNumber = 0
+  if (regSkinMatch) skinNumber = Number(regSkinMatch[1]) || 0
 
+  if (regChampionMatch && regChampionMatch[1]) {
+    // 获取名字
+    const championName = regChampionMatch[1]
+    // 遍历英雄store获取英雄ID
+    const championId = store.patch.champions.find(champion => champion.key === championName)?.id || 'error'
+    // 获取老版本的皮肤ID
+    const oldSkinId = championId.toString() + skinNumber.toString().padStart(3, '0')
+    
+    return `https://communitydragon.buguoguo.cn/${patch}/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/${isUncentered ? 'uncentered/' : ''}${championId}/${oldSkinId}.jpg`
+  } else {
+    return skinPath
+  }
 }
-
-// asset(bala(skinPath,patch),patch)
-
 
 function isGreaterThan14dot9(patch) {
   // Give param `patch` is always a string which
@@ -54,25 +71,21 @@ function isGreaterThan14dot9(patch) {
   // should compare MAJOR first then MINOR
   // 14.10 > 14.9 > 14.1
 
-  const [major1, minor1] = patch.split('.');
-  const [major2, minor2] = '14.9'.split('.');
+  if (['pbe', 'latest'].includes(patch)) return true
 
-  return major1 > major2 || (major1 === major2 && minor1 > minor2);
+  const [major1, minor1] = patch.split('.').map(Number)
+  const [major2, minor2] = '14.9'.split('.').map(Number)
+
+  if (major1 !== major2) return major1 > major2
+  return minor1 > minor2
 }
 
-
-//14.9聚焦图https://raw.communitydragon.org/{版本号}/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/{英雄数字ID}/{皮肤ID}.jpg
-//14.9原画https://raw.communitydragon.org/{版本号}/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/uncentered/{英雄数字ID}/{皮肤ID}.jpg
-
-
-//14.9聚焦图https://raw.communitydragon.org/14.9/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/226/1000.jpg
-//14.9原画https://raw.communitydragon.org/14.9/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/uncentered/1/1000.jpg
-
-//14.10 聚焦图https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/aatrox/skins/skin01/images/aatrox_splash_centered_1.jpg
-//14.10 原画https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/aatrox/skins/skin01/images/aatrox_splash_uncentered_1.jpg
-
 export function asset(path, patch = "pbe") {
-  return path.replace("/lol-game-data/assets", dataRoot(patch)).toLowerCase();
+
+  // TODO
+  const transPath = bala(path, patch)
+
+  return transPath.replace("/lol-game-data/assets", dataRoot(patch)).toLowerCase();
 }
 
 export function splitId(id) {
