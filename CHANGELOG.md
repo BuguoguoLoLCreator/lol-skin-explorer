@@ -1,4 +1,17 @@
-# Changelog
+# 更新日志
+
+<header>
+
+## [v1.1.2](https://github.com/BuguoguoLoLCreator/lol-skin-explorer/tree/v1.1.2)
+
+###### 2024/11/18
+
+</header>
+
+- 大量Bug修复，页面本地化。
+
+---
+
 
 <header>
 

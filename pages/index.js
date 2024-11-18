@@ -70,7 +70,7 @@ export default function Index() {
       <Head>
         {makeTitle()}
         {makeDescription(
-          `Browse through League of Legends skins from the comfort of your browser. Take a look at these ${champions.length} champions!`
+          `随时随地查看英雄联盟皮肤原画， ${champions.length} 个英雄尽收于此！`
         )}
       </Head>
       <div {...handlers} className={styles.container}>
@@ -78,12 +78,12 @@ export default function Index() {
           active="champions"
           filters={
             <label>
-              <span>Role</span>
+              <span>筛选</span>
               <select
                 value={champRole}
                 onChange={(e) => setChampRole(e.target.value)}
               >
-                <option value="">All</option>
+                <option value="">全部</option>
                 {Object.entries(classes).map(([k, v]) => (
                   <option key={k} value={k}>
                     {v}

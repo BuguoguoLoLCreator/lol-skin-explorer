@@ -11,7 +11,7 @@ export function Footer({ flat }) {
     <footer className={classNames(styles.footer, { [styles.flat]: flat })}>
       <div>
         <p>
-          In-game data provided by{" "}
+        游戏内数据来自于{" "}
           <a
             target="_blank"
             href="https://communitydragon.org"
@@ -19,7 +19,7 @@ export function Footer({ flat }) {
           >
             CommunityDragon
           </a>{" "}
-          and the{" "}
+          和{" "}
           <a
             target="_blank"
             href="https://leagueoflegends.fandom.com/"
@@ -27,10 +27,10 @@ export function Footer({ flat }) {
           >
             League of Legends Wiki
           </a>
-          .
+          。
         </p>
         <p>
-          Skin Explorer was created under Riot Games&apos;{" "}
+        BuguoguoLoLCreator was created under Riot Games&apos;{" "}
           <a
             target="_blank"
             href="https://www.riotgames.com/en/legal"
@@ -46,19 +46,19 @@ export function Footer({ flat }) {
         {patch && (
           <p>
             <a
-              href="https://raw.communitydragon.org/pbe"
+              href="https://communitydragon.buguoguo.cn/pbe/"
               target="_blank"
               style={{ textDecoration: "none" }}
               rel="noreferrer"
             >
-              <b>Patch {patch}</b>
+              <b>版本 {patch}</b>
             </a>
           </p>
         )}
         <p>
           <a
             target="_blank"
-            href={`https://github.com/preyneyv/lol-skin-explorer/tree/${
+            href={`https://github.com/BuguoguoLoLCreator/lol-skin-explorer/tree/${
               process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA ?? "main"
             }`}
             style={{ textDecoration: "none" }}
@@ -66,8 +66,33 @@ export function Footer({ flat }) {
           >
             Skin Explorer v{publicRuntimeConfig?.version}
           </a>
+          .{" "}中文分支{" "}
+          <a
+            target="_blank"
+            href="https://github.com/BuguoguoLoLCreator"
+            rel="noreferrer"
+          >
+            布锅锅联盟宇宙
+          </a>
+          {"("}
+          <a
+            target="_blank"
+            href="https://github.com/BakaFT"
+            rel="noreferrer"
+          >
+            @BakaFT
+          </a>
+          {" "}&{" "}
+          <a
+            target="_blank"
+            href="https://github.com/Valhir"
+            rel="noreferrer"
+          >
+            @Valhir
+          </a>
+          {")"}
           <br />
-          Built by{" "}
+          原作者{" "}
           <a
             target="_blank"
             href="https://github.com/preyneyv"
@@ -81,7 +106,7 @@ export function Footer({ flat }) {
             href="https://github.com/preyneyv/lol-skin-explorer"
             rel="noreferrer"
           >
-            View Source on GitHub
+            在GitHub中查看
           </a>
         </p>
       </div>

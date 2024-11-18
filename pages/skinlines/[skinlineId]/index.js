@@ -36,9 +36,9 @@ function _Page() {
       <Head>
         {makeTitle(skinline.name)}
         {makeDescription(
-          `Browse through all ${skins.length} skin${
+          `浏览全部 ${skins.length} 个${
             skins.length == 1 ? "" : "s"
-          } in the League of Legends ${skinline.name} skinline!`
+          } 归属于 ${skinline.name} 系列的皮肤`
         )}
         {splash && makeImage(splash, skinline.name)}
       </Head>
@@ -60,7 +60,7 @@ function _Page() {
             <main>
               <h2 className={styles.subtitle}>
                 <Folder />
-                Skinline
+                皮肤系列
               </h2>
               <h1 className={styles.title}>{skinline.name}</h1>
               {!!universes.length && (
@@ -74,20 +74,20 @@ function _Page() {
                     <a>
                       <Globe />
 
-                      <span>Part of the {universes[0].name} universe.</span>
+                      <span>该皮肤系列归属于 {universes[0].name} 宇宙</span>
                     </a>
                   </Link>
                 </div>
               )}
               <div className={styles.controls}>
                 <label>
-                  <span>Sort By</span>
+                  <span>排序方式</span>
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
                   >
-                    <option value="champion">Champion</option>
-                    <option value="rarity">Rarity</option>
+                    <option value="champion">英雄</option>
+                    <option value="rarity">稀有度</option>
                   </select>
                 </label>
               </div>

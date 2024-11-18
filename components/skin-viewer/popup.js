@@ -64,7 +64,7 @@ export function Popup({ skin }) {
         <>
           <h3 onClick={() => setShowChromas(!showChromas)}>
             <span>
-              <Palette /> {skin.chromas.length + 1} Chromas
+              <Palette /> {skin.chromas.length + 1} 个炫彩外观
             </span>
             {showChromas ? <ChevronUp /> : <ChevronDown />}
           </h3>
@@ -96,7 +96,7 @@ export function Popup({ skin }) {
         <h3>
           <span>
             <Video />
-            View on SkinSpotlights
+            在哔哩哔哩查看SkinSpotlights皮肤视频
           </span>
           <ExternalLink />
         </h3>
@@ -105,7 +105,7 @@ export function Popup({ skin }) {
         <h3>
           <span>
             <Box />
-            View 3D Model on Khada
+            在Khada查看3D模型
           </span>
           <ExternalLink />
         </h3>

@@ -60,7 +60,7 @@ function _Page() {
         {makeTitle(universe.name)}
         {makeDescription(
           universe.description ||
-            `Browse through all the skins in the League of Legends ${universe.name} universe!`
+            `浏览 ${universe.name} 宇宙！`
         )}
         {splash && makeImage(splash, universe.name)}
       </Head>
@@ -82,7 +82,7 @@ function _Page() {
             <main>
               <h2 className={styles.subtitle}>
                 <Globe />
-                Universe
+                宇宙
               </h2>
               <h1 className={styles.title}>{universe.name}</h1>
               {universe.description && (
@@ -90,13 +90,13 @@ function _Page() {
               )}
               <div className={styles.controls}>
                 <label>
-                  <span>Sort By</span>
+                  <span>排序方式</span>
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
                   >
-                    <option value="champion">Champion</option>
-                    <option value="rarity">Rarity</option>
+                    <option value="champion">英雄</option>
+                    <option value="rarity">稀有度</option>
                   </select>
                 </label>
               </div>

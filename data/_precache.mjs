@@ -5,6 +5,9 @@
 import Redis from "ioredis";
 import fs from "fs/promises";
 import path from "path";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
@@ -54,7 +57,7 @@ class Cache {
 async function downloadKey(key, initial, cache, root) {
   const data = await cache.get(key, initial ?? null);
   await fs.writeFile(path.resolve(root, `${key}.json`), JSON.stringify(data));
-  console.log(`[Precache] Cached ${key}!`);
+  console.log(`[预缓存] ${key} 已载入！`);
 }
 
 async function main() {

@@ -221,6 +221,7 @@ function _SkinViewer({
    * decided that a[href][download] shouldn't work for CORS stuff.
    */
   const downloadActive = useCallback(async () => {
+    console.log("资源地址",imgPath)
     const image = await fetch(asset(imgPath, patch || "pbe"));
     const imageBlog = await image.blob();
     const imageURL = URL.createObjectURL(imageBlog);
@@ -355,7 +356,7 @@ function _SkinViewer({
       <Head>
         {makeTitle(skin.name)}
         {makeDescription(
-          skin.description || `Look at the splash art for ${skin.name}!`
+          skin.description || `欣赏 ${skin.name} 原画！`
         )}
         {makeImage(asset(skin.uncenteredSplashPath), skin.name)}
         {makeCanonical(`/champions/${meta.champion.key}/skins/${skin.id}`)}
@@ -425,13 +426,13 @@ function _SkinViewer({
               </a>
             </Link>
             <div className={styles.controls}>
-              <div onClick={toggleFill} title="Fill Screen (Z)">
+              <div onClick={toggleFill} title="填充屏幕 (Z)">
                 {fill ? <Minimize2 /> : <Maximize2 />}
               </div>
-              <div onClick={toggleCentered} title="Centered (C)">
+              <div onClick={toggleCentered} title="切换聚焦/原画 (C)">
                 {centered ? <User /> : <Users />}
               </div>
-              <div onClick={downloadActive} title="Download (D)">
+              <div onClick={downloadActive} title="下载 (D)">
                 <Download />
               </div>
 
@@ -441,7 +442,7 @@ function _SkinViewer({
                     value={patch}
                     onChange={(e) => setPatch(e.target.value)}
                   >
-                    <option disabled>Patch</option>
+                    <option disabled>历史版本</option>
                     <option value="">PBE</option>
                     {meta.changes.map((patch) => (
                       <option key={patch} value={patch}>

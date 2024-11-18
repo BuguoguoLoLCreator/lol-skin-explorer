@@ -1,3 +1,3 @@
 /* URLs */
-export const CDRAGON = "https://raw.communitydragon.org";
-export const ROOT = "https://www.skinexplorer.lol";
+export const CDRAGON = "https://communitydragon.buguoguo.cn";
+export const ROOT = "https://splash.buguoguo.cn";

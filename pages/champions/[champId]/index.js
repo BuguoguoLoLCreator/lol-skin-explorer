@@ -35,9 +35,9 @@ function _Page() {
       <Head>
         {makeTitle(champion.name)}
         {makeDescription(
-          `Browse through the ${skins.length} skin${
+          `浏览 ${skins.length} 个皮肤${
             skins.length == 1 ? "" : "s"
-          } that ${champion.name} has!`
+          } 属于 ${champion.name} 的皮肤！`
         )}
         {makeImage(asset(base.uncenteredSplashPath), champion.name)}
       </Head>
@@ -58,13 +58,13 @@ function _Page() {
               <h1 className={styles.title}>{champion.name}</h1>
               <div className={styles.controls}>
                 <label>
-                  <span>Sort By</span>
+                  <span>排序方式</span>
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
                   >
-                    <option value="release">Release</option>
-                    <option value="rarity">Rarity</option>
+                    <option value="release">发布日期</option>
+                    <option value="rarity">稀有度</option>
                   </select>
                 </label>
               </div>

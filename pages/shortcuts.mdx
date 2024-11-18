@@ -5,69 +5,69 @@ import { makeTitle } from "../data/helpers";
 import styles from "../styles/static.module.scss";
 import Changelog from "../CHANGELOG.md";
 
-# Keybinds & Gestures
+# 快捷键与鼠标手势
 
 <header>
 
-## Indexes
+## 索引
 
 ###### [`/`](/) [`/universes`](/universes) [`/skinlines`](/skinlines)
 
 </header>
 
-| Keybinds       |                                                    |
+| 快捷键       |                                                    |
 | -------------- | -------------------------------------------------- |
-| _Any Key_      | Focus Omnisearch                                   |
-| `Left` `Right` | Cycle between champions, universes, and skinlines. |
+| _任意键_      | 聚焦到全局搜索                                   |
+| `左` `右` | 在英雄、宇宙和皮肤系列之间循环切换。 |
 
 <br />
 
-| Gestures                   |                                                    |
+| 鼠标手势                   |                                                    |
 | -------------------------- | -------------------------------------------------- |
-| `Swipe Left` `Swipe Right` | Cycle between champions, universes, and skinlines. |
+| `向左滑动` `向右滑动` | 在英雄、宇宙和皮肤系列之间循环切换。 |
 
 <header>
 
-## Collections
+## 藏品
 
 ###### [`/champions/aatrox`](/champions/aatrox)
 
 </header>
 
-| Keybinds  |                  |
+| 快捷键  |                  |
 | --------- | ---------------- |
-| _Any Key_ | Focus Omnisearch |
-| `Esc`     | Go Back to Index |
+| _任意键_ | 聚焦到全局搜索 |
+| `Esc`     | 返回到索引页面 |
 
 <header>
 
-## Viewer
+## 皮肤查看页
 
 ###### [`/champions/aatrox/skins/266000`](/champions/aatrox/skins/266000)
 
 </header>
 
-| Keybinds       |                                                             |
+| 快捷键       |                                                             |
 | -------------- | ----------------------------------------------------------- |
-| `Esc`          | Go Back to Collection                                       |
-| `Z`            | Toggle Zoom                                                 |
-| `C`            | Toggle Centered (Champ Select) and Uncentered (Full Splash) |
-| `D`            | Download the active splash art.                             |
-| `Left` `Right` | Go to previous/next skin in the collection                  |
-| `Up` `Down`    | Cycle between older versions of splash art.                 |
+| `Esc`          | 返回到藏品页面                                      |
+| `Z`            | 切换缩放                                                 |
+| `C`            | 切换居中（聚焦图）和不居中（原画） |
+| `D`            | 下载当前原画                             |
+| `左` `右` | 查看藏品中的前一个/下一个皮肤                  |
+| `上` `下`    | 在旧版本的原画之间循环切换                 |
 
 <br />
 
-| Gestures                     |                                             |
+| 鼠标手势                     |                                             |
 | ---------------------------- | ------------------------------------------- |
-| `Double Tap`                 | Toggle Zoom                                 |
-| ` Swipe Left` `Swipe Right ` | Go to next/previous skin in the collection  |
-| `Swipe Up`                   | Cycle between older versions of splash art. |
+| `双击`                 | 切换缩放                                 |
+| ` 向左滑动` `向右滑动 ` | 查看集合中的下一个/上一个皮肤  |
+| `向上滑动`                   | 在旧版本的插画之间循环切换 |
 
 export default ({ children }) => (
   <Layout backTo="/">
     <>
-      <Head>{makeTitle("Keybinds & Gestures")}</Head>
+      <Head>{makeTitle("快捷键与鼠标手势")}</Head>
     </>
     <main className={styles.main}>{children}</main>
   </Layout>

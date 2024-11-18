@@ -34,7 +34,7 @@ export const Header = ({ flat, backTo }) => {
             <Image
               priority
               src={logo}
-              alt="Skin Explorer"
+              alt="Logo"
               height={36}
               width={178}
             />
@@ -59,13 +59,13 @@ export const Header = ({ flat, backTo }) => {
           <ul>
             <li>
               <Link href="/shortcuts">
-                <a>Keybinds &amp; Gestures</a>
+                <a>快捷键与鼠标手势</a>
               </Link>
             </li>
             <li className={styles.divider} />
             <li>
               <Link href="/changelog" as="/changelog">
-                <a>Changelog</a>
+                <a>站点更新日志</a>
               </Link>
             </li>
             {/* <li>
@@ -86,29 +86,29 @@ export const Header = ({ flat, backTo }) => {
             </li> */}
             <li>
               <a
-                href="https://analytics.skinexplorer.lol/share/JlbPP3v4/Skin%20Explorer"
+                href="https://buguoguo.cn"
                 target="_blank"
                 rel="noreferrer"
               >
-                Analytics <ExternalLink />
+                布锅锅联盟宇宙 <ExternalLink />
               </a>
             </li>
             <li>
               <a
-                href="https://github.com/preyneyv/lol-skin-explorer/issues/new/choose"
+                href="https://voice.buguoguo.cn"
                 target="_blank"
                 rel="noreferrer"
               >
-                Bug Report <ExternalLink />
+                联盟宇宙丨语音 <ExternalLink />
               </a>
             </li>
             <li>
               <a
-                href="https://github.com/preyneyv/lol-skin-explorer/"
+                href="https://buguoguo.cn"
                 target="_blank"
                 rel="noreferrer"
               >
-                View on GitHub <ExternalLink />
+                反馈BUG <ExternalLink />
               </a>
             </li>
           </ul>

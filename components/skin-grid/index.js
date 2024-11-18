@@ -8,7 +8,7 @@ export function SkinGrid({ skins, linkTo }) {
   if (skins.length === 0)
     return (
       <div className={styles.grid} style={{ gridTemplateColumns: "1fr" }}>
-        <span className={styles.error}>No skins (yet)!</span>
+        <span className={styles.error}>暂无皮肤！</span>
       </div>
     );
   return (

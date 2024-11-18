@@ -8,6 +8,7 @@ const withMDX = require("@next/mdx")({
     rehypePlugins: [],
   },
 });
+
 module.exports = withPWA({
   pwa: {
     dest: "public",
@@ -19,7 +20,7 @@ module.exports = withPWA({
     pageExtensions: ["js", "jsx", "md", "mdx"],
     reactStrictMode: true,
     images: {
-      domains: ["raw.communitydragon.org"],
+      domains: ["communitydragon.buguoguo.cn"],
     },
     publicRuntimeConfig: { version },
     async redirects() {

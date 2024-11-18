@@ -69,7 +69,7 @@ export default function Index() {
       <Head>
         {makeTitle("Universes")}
         {makeDescription(
-          `Browse through League of Legends skins from the comfort of your browser. Take a look at these ${universes.length} universes!`
+          `在线浏览 ${universes.length} 个宇宙！`
         )}
       </Head>
       <div {...handlers} className={styles.container}>

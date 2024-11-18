@@ -71,7 +71,7 @@ export const Omnisearch = React.forwardRef(({}, ref) => {
       <input
         ref={inp}
         type="search"
-        placeholder="Search"
+        placeholder="搜索"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onFocus={() => setShowResults(true)}
@@ -117,13 +117,13 @@ export const Omnisearch = React.forwardRef(({}, ref) => {
               <div>
                 <div>{match.name}</div>
                 {match.type === "champion" ? (
-                  <span>Champion</span>
+                  <span>英雄</span>
                 ) : match.type === "skinline" ? (
-                  <span>Skinline</span>
+                  <span>皮肤系列</span>
                 ) : match.type === "universe" ? (
-                  <span>Universe</span>
+                  <span>宇宙</span>
                 ) : (
-                  <span>Skin</span>
+                  <span>皮肤</span>
                 )}
               </div>
             </li>

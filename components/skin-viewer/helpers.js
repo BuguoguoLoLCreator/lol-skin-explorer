@@ -27,7 +27,7 @@ export async function prepareCollection(collection, idx) {
   meta.universes;
 
   meta.modelviewerUrl = modelviewerUrl(skin, meta.champion);
-  meta.skinSpotlightsUrl = `https://www.youtube.com/c/SkinSpotlights/search?query=${skin.name.slice(
+  meta.skinSpotlightsUrl = `https://space.bilibili.com/3493083209533523/search/video?keyword=${skin.name.slice(
     skin.isBase ? 9 : 0
   )}`;
 

@@ -14,7 +14,7 @@ export function Nav({ active, filters }) {
             })}
           >
             <User />
-            Champions
+            英雄
           </a>
         </Link>
         <Link href="/universes" as="/universes">
@@ -24,7 +24,7 @@ export function Nav({ active, filters }) {
             })}
           >
             <Globe />
-            Universes
+            宇宙
           </a>
         </Link>
         <Link href="/skinlines" as="/skinlines">
@@ -34,7 +34,7 @@ export function Nav({ active, filters }) {
             })}
           >
             <Folder />
-            Skinlines
+            皮肤系列
           </a>
         </Link>
       </div>

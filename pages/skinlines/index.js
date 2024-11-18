@@ -44,7 +44,7 @@ export default function Index() {
       <Head>
         {makeTitle("Skinlines")}
         {makeDescription(
-          `Browse through League of Legends skins from the comfort of your browser. Take a look at these ${skinlines.length} skinlines!`
+          `在线浏览英雄联盟 ${skinlines.length} 个系列皮肤`
         )}
       </Head>
       <div {...handlers} className={styles.container}>

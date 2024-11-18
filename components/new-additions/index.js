@@ -15,7 +15,7 @@ export default function NewAdditions() {
 
   return (
     <div className={styles.container}>
-      <h3>Recently Added</h3>
+      <h3>最新皮肤</h3>
       <div className={styles.gridContainer}>
         <div className={styles.grid}>
           {added.map((skin) => {

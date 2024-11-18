@@ -33,6 +33,44 @@ export function dataRoot(patch = "pbe") {
   return `${CDRAGON}/${patch}/plugins/rcp-be-lol-game-data/global/default`;
 }
 
+
+function bala(skinPath, patch){
+  // 负责英雄名=>英雄id
+  const {champions} = useProps()
+
+  const isGreaterThan14dot9 = true
+  // 从skinPath抽取皮肤ID
+  // 现在通过英雄ID 皮肤ID patch拼凑路径
+
+}
+
+// asset(bala(skinPath,patch),patch)
+
+
+function isGreaterThan14dot9(patch) {
+  // Give param `patch` is always a string which
+  // contains two parts separated by a dot.
+  // MAJOR.MINOR 
+  // should compare MAJOR first then MINOR
+  // 14.10 > 14.9 > 14.1
+
+  const [major1, minor1] = patch.split('.');
+  const [major2, minor2] = '14.9'.split('.');
+
+  return major1 > major2 || (major1 === major2 && minor1 > minor2);
+}
+
+
+//14.9聚焦图https://raw.communitydragon.org/{版本号}/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/{英雄数字ID}/{皮肤ID}.jpg
+//14.9原画https://raw.communitydragon.org/{版本号}/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/uncentered/{英雄数字ID}/{皮肤ID}.jpg
+
+
+//14.9聚焦图https://raw.communitydragon.org/14.9/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/226/1000.jpg
+//14.9原画https://raw.communitydragon.org/14.9/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/uncentered/1/1000.jpg
+
+//14.10 聚焦图https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/aatrox/skins/skin01/images/aatrox_splash_centered_1.jpg
+//14.10 原画https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/aatrox/skins/skin01/images/aatrox_splash_uncentered_1.jpg
+
 export function asset(path, patch = "pbe") {
   return path.replace("/lol-game-data/assets", dataRoot(patch)).toLowerCase();
 }
@@ -68,19 +106,19 @@ export function useSkinlineSkins(id) {
 }
 
 export const rarities = {
-  kUltimate: ["ultimate.png", "Ultimate"],
-  kMythic: ["mythic.png", "Mythic"],
-  kLegendary: ["legendary.png", "Legendary"],
-  kEpic: ["epic.png", "Epic"],
+  kUltimate: ["ultimate.png", "终极"],
+  kMythic: ["mythic.png", "神话"],
+  kLegendary: ["legendary.png", "传说"],
+  kEpic: ["epic.png", "史诗"],
 };
 
 export const classes = {
-  assassin: "Assassin",
-  fighter: "Fighter",
-  mage: "Mage",
-  marksman: "Marksman",
-  support: "Support",
-  tank: "Tank",
+  assassin: "刺客",
+  fighter: "战士",
+  mage: "法师",
+  marksman: "射手",
+  support: "辅助",
+  tank: "坦克",
 };
 
 export function rarity(skin) {
@@ -91,7 +129,7 @@ export function rarity(skin) {
 }
 
 export function modelviewerUrl(skin, champion) {
-  return `https://www.modelviewer.lol/en-US/model-viewer?id=${skin.id}`;
+  return `https://www.modelviewer.lol/zh-CN/model-viewer?id=${skin.id}`;
   // const skinId = splitId(skin.id)[1];
   // return `https://teemo.gg/model-viewer?game=league-of-legends&type=champions&object=${champion.alias.toLowerCase()}&skinid=${champion.alias.toLowerCase()}-${skinId}`;
 }
@@ -168,16 +206,15 @@ export function useArrowNavigation(left, right) {
 }
 
 export function makeTitle(...pages) {
-  let t = [...pages, "Skin Explorer"].join(" · ");
+  let t = [...pages, "布锅锅联盟宇宙丨原画"].join(" · ");
   if (pages.length === 0) {
-    t = "Skin Explorer · League of Legends";
+    t = "布锅锅联盟宇宙丨原画";
   }
 
   return (
     <>
       <title>{t}</title>;
       <meta property="og:title" content={t} />
-      <meta name="twitter:site" content="@SkinExplorerLoL" />
     </>
   );
 }

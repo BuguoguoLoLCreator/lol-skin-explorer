@@ -9,7 +9,7 @@ Disallow: /opensearch
 Allow: /
 
 # Host
-Host: https://www.skinexplorer.lol
+Host: https://splash.buguoguo.cn
 
 # Sitemaps
-Sitemap: https://www.skinexplorer.lol/sitemap-2.xml
+Sitemap: https://splash.buguoguo.cn/sitemap-2.xml

@@ -1,9 +1,10 @@
 import BaseDocument, { Html, Head, Main, NextScript } from "next/document";
+console.log('Environment:', process.env.NEXT_PUBLIC_VERCEL_ENV);
 
 class Document extends BaseDocument {
   render() {
     return (
-      <Html lang="en">
+      <Html lang="zh">
         <Head>
           <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
           <meta name="theme-color" content="#0C0F13" />
@@ -14,17 +15,7 @@ class Document extends BaseDocument {
           />
           <link
             rel="preconnect"
-            href="https://raw.communitydragon.org"
-            crossOrigin="true"
-          />
-          <link
-            rel="preconnect"
-            href="https://vitals.vercel-insights.com"
-            crossOrigin="true"
-          />
-          <link
-            rel="preconnect"
-            href="https://analytics.skinexplorer.lol"
+            href="https://communitydragon.buguoguo.cn"
             crossOrigin="true"
           />
           <link
@@ -47,32 +38,10 @@ class Document extends BaseDocument {
             <>
               <script
                 async
-                defer
-                data-website-id="0b628597-38a2-4c1c-964c-e83027ce1692"
-                src="https://analytics.skinexplorer.lol/umami.js"
+                charset="UTF-8"
+                id="LA_COLLECT"
+                src="//sdk.51.la/js-sdk-pro.min.js?id=K1QCVeoD2crlitVA&ck=K1QCVeoD2crlitVA&autoTrack=true&hashMode=true"
               />
-              <script
-                async
-                src="https://www.googletagmanager.com/gtag/js?id=G-V2ZERGTW3J"
-              />
-              <script
-                id="google-analytics"
-                async
-                dangerouslySetInnerHTML={{
-                  __html: `
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);}
-                    gtag('js', new Date());
-                    
-                    gtag('config', 'G-V2ZERGTW3J');
-                  `,
-                }}
-              />
-              <script
-                async
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3297862613403903"
-                crossOrigin="anonymous"
-              ></script>
             </>
           )}
         </Head>
