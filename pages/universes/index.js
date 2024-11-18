@@ -67,7 +67,7 @@ export default function Index() {
   return (
     <>
       <Head>
-        {makeTitle("Universes")}
+        {makeTitle("宇宙")}
         {makeDescription(
           `在线浏览 ${universes.length} 个宇宙！`
         )}

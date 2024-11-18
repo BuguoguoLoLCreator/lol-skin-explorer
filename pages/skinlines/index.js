@@ -42,7 +42,7 @@ export default function Index() {
   return (
     <>
       <Head>
-        {makeTitle("Skinlines")}
+        {makeTitle("皮肤系列")}
         {makeDescription(
           `在线浏览英雄联盟 ${skinlines.length} 个系列皮肤`
         )}
