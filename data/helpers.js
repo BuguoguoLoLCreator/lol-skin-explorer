@@ -36,6 +36,9 @@ export function dataRoot(patch = "pbe") {
 
 
 function bala(skinPath, patch){
+  // 如果文件后缀是 .webm 则直接返回原始路径
+  if (skinPath.endsWith('.webm')) return skinPath
+
   // 如果版本号大于 14.9 则直接返回
   if (isGreaterThan14dot9(patch)) return skinPath
 
@@ -245,7 +248,7 @@ export function makeCanonical(url) {
   const u = ROOT + url;
   return (
     <>
-      <link rel="canonical" href={u} />
+      <a rel="canonical" href={u} />
       <meta property="og:url" content={u} />
     </>
   );
