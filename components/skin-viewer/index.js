@@ -104,9 +104,11 @@ function _SkinViewer({
   const meta = skin.$skinExplorer;
   const supportsVideo = useMemo(() => canPlayWebM(), []);
   const supportsPrefetch = useMemo(() => _supportsPrefetch(), []);
-
   const router = useRouter();
   useEscapeTo(backTo);
+
+  // 追加新的状态 showVideo 控制视频显示
+  const [showVideo, setShowVideo] = useState(true); // 默认为显示视频
   const [centered, setCentered] = useLocalStorageState(
     "viewer__centered",
     false
@@ -123,7 +125,7 @@ function _SkinViewer({
   const [patch, setPatch] = useState("");
   const showUIRef = useRef();
   const dimensions = useRef({ width: 1, height: 1 });
-
+  
   useEffect(() => {
     setDeltaX(0);
     setSmoothX(false);
@@ -177,6 +179,11 @@ function _SkinViewer({
     : "center center";
   const r = rarity(skin);
 
+  // 用于切换显示视频或图片
+  const toggleShowVideo = useCallback(() => {
+    setShowVideo((prev) => !prev);
+  }, []);
+
   const goPrevious = useCallback(
     (swipe) => {
       if (!prev || exiting) return;
@@ -221,21 +228,37 @@ function _SkinViewer({
    * decided that a[href][download] shouldn't work for CORS stuff.
    */
   const downloadActive = useCallback(async () => {
-    console.log("资源地址",imgPath)
-    const image = await fetch(asset(imgPath, patch || "pbe"));
-    const imageBlog = await image.blob();
-    const imageURL = URL.createObjectURL(imageBlog);
-
-    const link = document.createElement("a");
-    link.href = imageURL;
-    link.download = `${skin.name}${
-      patch ? " - Patch " + patch.replaceAll(".", "_") : ""
-    }`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(imageURL);
-  }, [imgPath, patch, skin]);
+    let fileURL;
+    let fileName;
+  
+    // 判断是否为 centered 状态
+    const centeredState = centered ? " - 聚焦" : " - 非聚焦";
+  
+    // 如果是视频，则下载视频文件
+    if (showVideo && vidPath) {
+      const video = await fetch(asset(vidPath, patch || "pbe"));
+      const videoBlob = await video.blob();
+      fileURL = URL.createObjectURL(videoBlob);
+      fileName = `${skin.name}${centeredState}${patch ? " - 版本 " + patch.replaceAll(".", "_") : ""}.webm`;
+    } 
+    // 如果是图片，则下载图片文件
+    else if (imgPath) {
+      const image = await fetch(asset(imgPath, patch || "pbe"));
+      const imageBlob = await image.blob();
+      fileURL = URL.createObjectURL(imageBlob);
+      fileName = `${skin.name}${centeredState}${patch ? " - 版本 " + patch.replaceAll(".", "_") : ""}.jpg`;
+    }
+  
+    if (fileURL) {
+      const link = document.createElement("a");
+      link.href = fileURL;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(fileURL);
+    }
+  }, [showVideo, vidPath, imgPath, patch, skin, centered]);
 
   useEffect(() => {
     function onKeyDown(e) {
@@ -435,6 +458,12 @@ function _SkinViewer({
               <div onClick={downloadActive} title="下载 (D)">
                 <Download />
               </div>
+             {/* 新增的视频切换按钮 */}
+              {vidPath && (
+                <div onClick={toggleShowVideo} title="切换动/静态原画">
+                  {showVideo ? "图" : "动"}
+                </div>
+              )}
 
               {meta.changes && (
                 <div className={styles.dropdown}>
@@ -501,12 +530,13 @@ function _SkinViewer({
           <Popup skin={skin} />
         </div>
         <div className={styles.letterBox}>
-          {vidPath ? (
+          {/* 根据 showVideo 状态控制视频和图片的显示 */}
+          {showVideo && vidPath ? (
             <video
               muted
               autoPlay
               loop
-              key={vidPath}
+              key={`${vidPath}-${patch}`}
               style={{ objectFit: "cover" }}
             >
               <source src={asset(vidPath, patch || "pbe")} />
@@ -527,12 +557,12 @@ function _SkinViewer({
           className={styles.main}
           style={{ transform: `translateX(${deltaX})` }}
         >
-          {vidPath ? (
+          {showVideo && vidPath ? (
             <video
               muted
               autoPlay
               loop
-              key={vidPath}
+              key={`${vidPath}-${patch}`}
               style={{ objectFit, objectPosition }}
               onLoadedData={() => setLoaded(true)}
               onLoadedMetadata={(e) => {
