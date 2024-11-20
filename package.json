@@ -12,6 +12,7 @@
     "dev": "npm run precache && next dev",
     "build": "npm run precache && next build",
     "start": "next start",
+    "server": "npm run precache && next build && next start",
     "lint": "next lint"
   },
   "dependencies": {
