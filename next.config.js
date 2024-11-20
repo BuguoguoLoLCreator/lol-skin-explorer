@@ -8,10 +8,12 @@ const withMDX = require("@next/mdx")({
     rehypePlugins: [],
   },
 });
+const timestamp = Date.now();
 
 module.exports = withPWA({
   pwa: {
     dest: "public",
+    sw: `sw-${timestamp}.js`,
     fallbacks: { document: "/offline.html" },
     runtimeCaching: pwaCacheConfig,
     disable: process.env.NODE_ENV === "development",
