@@ -2,6 +2,22 @@
 
 <header>
 
+## [v1.1.3](https://github.com/BuguoguoLoLCreator/lol-skin-explorer/tree/v1.1.3)
+
+###### 2024/11/24
+
+</header>
+
+- 修复部分版本ASU更新原画地址错误(比如提莫)。
+- 修正部分界面翻译。
+- 增加了终极皮肤动态/静态原画的切换功能，快捷键V。
+- 增加了快速前往[布锅锅联盟宇宙语音站](https://voice.buguoguo.cn)收听英雄语音的功能
+
+---
+
+
+<header>
+
 ## [v1.1.2](https://github.com/BuguoguoLoLCreator/lol-skin-explorer/tree/v1.1.2)
 
 ###### 2024/11/18

@@ -5,6 +5,7 @@ import {
   ExternalLink,
   Folder,
   Globe,
+  Mic,
   Palette,
   User,
   Video,
@@ -95,7 +96,7 @@ export function Popup({ skin }) {
       <a href={`https://voice.buguoguo.cn/#/voice/${meta.champion.id}`} target="_blank" rel="noreferrer">
         <h3>
           <span>
-            <Box />
+            <Mic />
             去语音站收听{meta.champion.name}的语音
           </span>
           <ExternalLink />

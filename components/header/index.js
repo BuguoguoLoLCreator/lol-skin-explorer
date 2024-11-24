@@ -59,7 +59,7 @@ export const Header = ({ flat, backTo }) => {
           <ul>
             <li>
               <Link href="/shortcuts">
-                <a>快捷键与鼠标手势</a>
+                <a>快捷键与手势</a>
               </Link>
             </li>
             <li className={styles.divider} />

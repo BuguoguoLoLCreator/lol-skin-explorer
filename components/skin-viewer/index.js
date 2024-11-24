@@ -22,6 +22,8 @@ import {
   Minimize2,
   User,
   Users,
+  Video, 
+  VideoOff
 } from "lucide-react";
 import {
   asset,
@@ -271,6 +273,7 @@ function _SkinViewer({
       if (e.code === "KeyZ") toggleFill();
       if (e.code === "KeyC") toggleCentered();
       if (e.code === "KeyD") downloadActive();
+      if (e.code === "KeyV") toggleShowVideo();
     }
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
@@ -280,6 +283,7 @@ function _SkinViewer({
     toggleFill,
     toggleCentered,
     downloadActive,
+    toggleShowVideo,
     patch,
     meta.changes,
   ]);
@@ -457,11 +461,10 @@ function _SkinViewer({
               </div>
               <div onClick={downloadActive} title="下载 (D)">
                 <Download />
-              </div>
-             {/* 新增的视频切换按钮 */}
+              </div> 
               {vidPath && (
-                <div onClick={toggleShowVideo} title="切换动/静态原画">
-                  {showVideo ? "图" : "动"}
+                <div onClick={toggleShowVideo} title="切换动/静态原画 (V)">
+                  {showVideo ? <Video /> : <VideoOff />}
                 </div>
               )}
 

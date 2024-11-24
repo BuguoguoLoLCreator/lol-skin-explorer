@@ -5,7 +5,7 @@ import { makeTitle } from "../data/helpers";
 import styles from "../styles/static.module.scss";
 import Changelog from "../CHANGELOG.md";
 
-# 快捷键与鼠标手势
+# 快捷键与手势
 
 <header>
 
@@ -22,7 +22,7 @@ import Changelog from "../CHANGELOG.md";
 
 <br />
 
-| 鼠标手势                   |                                                    |
+| 手势                   |                                                    |
 | -------------------------- | -------------------------------------------------- |
 | `向左滑动` `向右滑动` | 在英雄、宇宙和皮肤系列之间循环切换。 |
 
@@ -30,7 +30,7 @@ import Changelog from "../CHANGELOG.md";
 
 ## 藏品
 
-###### [`/champions/aatrox`](/champions/aatrox)
+###### [`/champions/volibear`](/champions/volibear)
 
 </header>
 
@@ -43,7 +43,7 @@ import Changelog from "../CHANGELOG.md";
 
 ## 皮肤查看页
 
-###### [`/champions/aatrox/skins/266000`](/champions/aatrox/skins/266000)
+###### [`/champions/volibear/skins/266000`](/champions/volibear/skins/106000)
 
 </header>
 
@@ -53,12 +53,13 @@ import Changelog from "../CHANGELOG.md";
 | `Z`            | 切换缩放                                                 |
 | `C`            | 切换居中（聚焦图）和不居中（原画） |
 | `D`            | 下载当前原画                             |
+| `V`            | 切换动态原画和静态原画（仅限终极皮肤）                            |
 | `左` `右` | 查看藏品中的前一个/下一个皮肤                  |
 | `上` `下`    | 在旧版本的原画之间循环切换                 |
 
 <br />
 
-| 鼠标手势                     |                                             |
+| 手势                     |                                             |
 | ---------------------------- | ------------------------------------------- |
 | `双击`                 | 切换缩放                                 |
 | ` 向左滑动` `向右滑动 ` | 查看集合中的下一个/上一个皮肤  |
@@ -67,7 +68,7 @@ import Changelog from "../CHANGELOG.md";
 export default ({ children }) => (
   <Layout backTo="/">
     <>
-      <Head>{makeTitle("快捷键与鼠标手势")}</Head>
+      <Head>{makeTitle("快捷键与手势")}</Head>
     </>
     <main className={styles.main}>{children}</main>
   </Layout>

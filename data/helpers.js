@@ -34,60 +34,55 @@ export function dataRoot(patch = "pbe") {
   return `${CDRAGON}/${patch}/plugins/rcp-be-lol-game-data/global/default`;
 }
 
+function PathCorrect(skinPath, patch) {
+  if (patch === 'pbe' || patch === 'latest') {
+    return skinPath;
+  }
 
-function bala(skinPath, patch){
-  // 如果文件后缀是 .webm 则直接返回原始路径
   if (skinPath.endsWith('.webm')) return skinPath
 
-  // 如果版本号大于 14.9 则直接返回
-  if (isGreaterThan14dot9(patch)) return skinPath
-
-  // 获取 aatrox_splash_centered_1.jpg 字符串
-  const championSkinPath = skinPath.split('/').pop()
-  // 判断是否为 uncentered
-  const isUncentered = skinPath.includes('uncentered')
-  // 正则判断获取英雄名字
-  const regChampionMatch = championSkinPath.match(/^([a-zA-Z]+)_/)
-  // 获取皮肤的序列号
-  const regSkinMatch = skinPath.toLowerCase().match(/(?:skin(\d{2})|base)/)
-  let skinNumber = 0
-  if (regSkinMatch) skinNumber = Number(regSkinMatch[1]) || 0
-
-  if (regChampionMatch && regChampionMatch[1]) {
-    // 获取名字
-    const championName = regChampionMatch[1]
-    // 遍历英雄store获取英雄ID
-    const championId = store.patch.champions.find(champion => champion.key === championName)?.id || 'error'
-    // 获取老版本的皮肤ID
-    const oldSkinId = championId.toString() + skinNumber.toString().padStart(3, '0')
-    
-    return `https://communitydragon.buguoguo.cn/${patch}/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/${isUncentered ? 'uncentered/' : ''}${championId}/${oldSkinId}.jpg`
-  } else {
-    return skinPath
+  if (isGreaterThan14dot9(patch)) {
+    return handleAsuSkinPath(skinPath);
   }
+
+  return handleOldPatchSkinPath(skinPath, patch);
 }
 
 function isGreaterThan14dot9(patch) {
-  // Give param `patch` is always a string which
-  // contains two parts separated by a dot.
-  // MAJOR.MINOR 
-  // should compare MAJOR first then MINOR
-  // 14.10 > 14.9 > 14.1
+  if (['pbe', 'latest'].includes(patch)) return true;
 
-  if (['pbe', 'latest'].includes(patch)) return true
+  const [major1, minor1] = patch.split('.').map(Number);
+  const [major2, minor2] = '14.9'.split('.').map(Number);
 
-  const [major1, minor1] = patch.split('.').map(Number)
-  const [major2, minor2] = '14.9'.split('.').map(Number)
+  if (major1 !== major2) return major1 > major2;
+  return minor1 > minor2;
+}
 
-  if (major1 !== major2) return major1 > major2
-  return minor1 > minor2
+function handleAsuSkinPath(skinPath) {
+  return skinPath.replace(/\.asu_[a-zA-Z0-9]+(?=\.jpg$)/i, '');
+}
+
+function handleOldPatchSkinPath(skinPath, patch) {
+  const championSkinPath = skinPath.split('/').pop();
+  const isUncentered = skinPath.includes('uncentered');
+  const regChampionMatch = championSkinPath.match(/^([a-zA-Z]+)_/);
+  const regSkinMatch = skinPath.toLowerCase().match(/(?:skin(\d{2})|base)/);
+  let skinNumber = 0;
+  if (regSkinMatch) skinNumber = Number(regSkinMatch[1]) || 0;
+
+  if (regChampionMatch && regChampionMatch[1]) {
+    const championName = regChampionMatch[1];
+    const championId = store.patch.champions.find(champion => champion.key === championName)?.id || 'error';
+    const oldSkinId = championId.toString() + skinNumber.toString().padStart(3, '0');
+    
+    return `${CDRAGON}/${patch}/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/${isUncentered ? 'uncentered/' : ''}${championId}/${oldSkinId}.jpg`;
+  } else {
+    return skinPath;
+  }
 }
 
 export function asset(path, patch = "pbe") {
-
-  // TODO
-  const transPath = bala(path, patch)
-
+  const transPath = PathCorrect(path, patch)
   return transPath.replace("/lol-game-data/assets", dataRoot(patch)).toLowerCase();
 }
 
