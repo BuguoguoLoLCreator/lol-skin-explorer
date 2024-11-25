@@ -243,7 +243,7 @@ export function makeCanonical(url) {
   const u = ROOT + url;
   return (
     <>
-      <a rel="canonical" href={u} />
+      <link rel="canonical" href={u} />
       <meta property="og:url" content={u} />
     </>
   );
