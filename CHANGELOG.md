@@ -2,6 +2,18 @@
 
 <header>
 
+## [v1.1.4](https://github.com/BuguoguoLoLCreator/lol-skin-explorer/tree/v1.1.4)
+
+###### 2024/11/27
+
+</header>
+
+- 适配腾讯定制皮肤品质，新增圣堂级皮肤。
+
+---
+
+<header>
+
 ## [v1.1.3](https://github.com/BuguoguoLoLCreator/lol-skin-explorer/tree/v1.1.3)
 
 ###### 2024/11/24
