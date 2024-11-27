@@ -117,10 +117,22 @@ export function useSkinlineSkins(id) {
 }
 
 export const rarities = {
-  kUltimate: ["ultimate.png", "终极"],
-  kMythic: ["mythic.png", "神话"],
-  kLegendary: ["legendary.png", "传说"],
-  kEpic: ["epic.png", "史诗"],
+  // 0: ["cn-gem-1.png", "其他"],
+  1: ["cn-gem-1.png", "典藏"],
+  2: ["cn-gem-2.png", "勇士"],
+  3: ["cn-gem-3.png", "王者"],
+  4: ["cn-gem-4.png", "史诗"],
+  5: ["cn-gem-5.png", "传说"],
+  6: ["cn-gem-6.png", "未知"],
+  7: ["cn-gem-7.png", "限定"],
+  8: ["cn-gem-8.png", "神话"],
+  9: ["cn-gem-9.png", "终极"],
+  10: ["cn-gem-10.png", "圣堂"],
+  11: ["cn-gem-11.png", "卓越"],
+  // kUltimate: ["ultimate.png", "终极"],
+  // kMythic: ["mythic.png", "神话"],
+  // kLegendary: ["legendary.png", "传说"],
+  // kEpic: ["epic.png", "史诗"],
 };
 
 export const classes = {
@@ -133,8 +145,8 @@ export const classes = {
 };
 
 export function rarity(skin) {
-  if (!rarities[skin.rarity]) return null;
-  const [imgName, name] = rarities[skin.rarity];
+  if (!rarities[skin.regionRarityId]) return null;  
+  const [imgName, name] = rarities[skin.regionRarityId];
   const imgUrl = `${dataRoot()}/v1/rarity-gem-icons/${imgName}`;
   return [imgUrl, name];
 }

@@ -37,7 +37,6 @@ class Document extends BaseDocument {
             <>
               <script
                 async
-                charSet="UTF-8"
                 id="LA_COLLECT"
                 src="//sdk.51.la/js-sdk-pro.min.js?id=K1QCVeoD2crlitVA&ck=K1QCVeoD2crlitVA&autoTrack=true&hashMode=true"
               />
