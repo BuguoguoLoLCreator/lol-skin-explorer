@@ -152,7 +152,7 @@ export function rarity(skin) {
 }
 
 export function modelviewerUrl(skin, champion) {
-  return `https://modelviewer.buguoguo.cn/model-viewer?id=${skin.id}`;
+  return `https://3d.buguoguo.cn/model-viewer?id=${skin.id}`;
   // const skinId = splitId(skin.id)[1];
   // return `https://teemo.gg/model-viewer?game=league-of-legends&type=champions&object=${champion.alias.toLowerCase()}&skinid=${champion.alias.toLowerCase()}-${skinId}`;
 }
