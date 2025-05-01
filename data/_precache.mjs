@@ -71,7 +71,7 @@ async function main() {
     [
       "added",
       "champions",
-      "changes",
+      // "changes",
       "persistentVars",
       "skinlines",
       "skins",
