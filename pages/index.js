@@ -33,18 +33,19 @@ function ChampionsList({ role }) {
           href="/champions/[champId]"
           as={`/champions/${c.key}`}
           prefetch={false}
+          className={styles.img}
+          passHref
         >
-          <a>
-            <Image
+          <span className={styles.imageContainer}>
+            <Image fill
               unoptimized
               className={styles.img}
               src={asset(c.squarePortraitPath)}
               alt={c.name}
-              width={80}
-              height={80}
+              objectFit="cover"
             />
-            <div>{c.name}</div>
-          </a>
+          </span>
+          <div>{c.name}</div>
         </Link>
       ))}
     </div>

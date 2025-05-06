@@ -51,22 +51,20 @@ export function Footer({ flat }) {
               style={{ textDecoration: "none" }}
               rel="noreferrer"
             >
-              <b>版本 {patch}</b>
+              <b>游戏版本 {patch}</b>
             </a>
           </p>
         )}
         <p>
           <a
             target="_blank"
-            href={`https://github.com/BuguoguoLoLCreator/lol-skin-explorer/tree/${
-              process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA ?? "main"
-            }`}
+            href={`https://github.com/BuguoguoLoLCreator/lol-skin-explorer`}
             style={{ textDecoration: "none" }}
             rel="noreferrer"
           >
             Skin Explorer v{publicRuntimeConfig?.version}
           </a>
-          .{" "}中文分支{" "}
+          {" "}
           <a
             target="_blank"
             href="https://github.com/BuguoguoLoLCreator"
@@ -74,39 +72,13 @@ export function Footer({ flat }) {
           >
             布锅锅联盟宇宙
           </a>
-          {"("}
-          <a
-            target="_blank"
-            href="https://github.com/BakaFT"
-            rel="noreferrer"
-          >
-            @BakaFT
-          </a>
-          {" "}&{" "}
-          <a
-            target="_blank"
-            href="https://github.com/Valhir"
-            rel="noreferrer"
-          >
-            @Valhir
-          </a>
-          {")"}
-          <br />
-          原作者{" "}
+          {"&"}
           <a
             target="_blank"
             href="https://github.com/preyneyv"
             rel="noreferrer"
           >
             @preyneyv
-          </a>
-          .{" "}
-          <a
-            target="_blank"
-            href="https://github.com/preyneyv/lol-skin-explorer"
-            rel="noreferrer"
-          >
-            在GitHub中查看
           </a>
         </p>
       </div>

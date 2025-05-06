@@ -47,10 +47,9 @@ function _Page() {
           <div>
             {splash && (
               <div className={styles.background}>
-                <Image
+                <Image fill
                   unoptimized
-                  layout="fill"
-                  objectFit="cover"
+                  style={{ objectFit: 'cover', width: '100%', height: '100%' }}
                   src={splash}
                   alt={skinline.name}
                 />
@@ -70,12 +69,10 @@ function _Page() {
                     href="/universes/[universeId]"
                     as={`/universes/${universes[0].id}`}
                     prefetch={false}
+                    passHref
                   >
-                    <a>
-                      <Globe />
-
-                      <span>该皮肤系列归属于 {universes[0].name} 宇宙</span>
-                    </a>
+                    <Globe />
+                    <span>该皮肤系列归属于 {universes[0].name} 宇宙</span>
                   </Link>
                 </div>
               )}

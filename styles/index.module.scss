@@ -215,3 +215,10 @@
     columns: 1;
   }
 }
+
+.imageContainer {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}

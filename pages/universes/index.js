@@ -31,7 +31,7 @@ function UniversesList() {
               as={`/universes/${u.id}`}
               prefetch={false}
             >
-              <a>{u.name}</a>
+              {u.name}
             </Link>
             {(skinSets.length > 1 || skinSets[0].name !== u.name) && (
               <ul>
@@ -42,7 +42,7 @@ function UniversesList() {
                       as={`/skinlines/${id}`}
                       prefetch={false}
                     >
-                      <a>{name}</a>
+                      {name}
                     </Link>
                   </li>
                 ))}

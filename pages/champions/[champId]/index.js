@@ -45,10 +45,9 @@ function _Page() {
         <FooterContainer>
           <div>
             <div className={styles.background}>
-              <Image
+              <Image fill
                 unoptimized
-                layout="fill"
-                objectFit="cover"
+                style={{ objectFit: 'cover', width: '100%', height: '100%' }}
                 src={asset(base.uncenteredSplashPath)}
                 alt={champion.name}
               />

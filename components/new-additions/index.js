@@ -20,21 +20,18 @@ export default function NewAdditions() {
         <div className={styles.grid}>
           {added.map((skin) => {
             return (
-              <Link key={skin.id} href={linkTo(skin)} as={linkTo(skin)}>
-                <a className={styles.skin}>
-                  <span className={styles.imageContainer}>
-                    <Image
-                      className={styles.tile}
-                      unoptimized
-                      loading="eager"
-                      src={asset(skin.tilePath)}
-                      alt={skin.name}
-                      objectFit="cover"
-                      layout="fill"
-                    />
-                  </span>
-                  <div>{skin.name}</div>
-                </a>
+              <Link key={skin.id} href={linkTo(skin)} as={linkTo(skin)} className={styles.skin} passHref>
+                <span className={styles.imageContainer}>
+                  <Image fill
+                    className={styles.tile}
+                    unoptimized
+                    loading="eager"
+                    src={asset(skin.tilePath)}
+                    alt={skin.name}
+                    objectFit="cover"
+                  />
+                </span>
+                <div>{skin.name}</div>
               </Link>
             );
           })}

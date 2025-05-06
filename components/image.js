@@ -2,18 +2,24 @@ import NextImage from "next/image";
 import { useState, useEffect } from "react";
 import placeholder from "../assets/placeholder.svg";
 
-export default function Image({ src, objectFit, ...props }) {
+export default function Image({ src, style, objectFit, objectPosition, fill, width, height, ...props }) {
   const [exists, setExists] = useState(true);
   useEffect(() => setExists(true), [src]);
 
   let actualSrc = exists ? src : placeholder;
+  const mergedStyle = {
+    ...(style || {}),
+    objectFit: objectFit || undefined,
+    objectPosition: objectPosition || undefined,
+  };
 
   return (
     <NextImage
       src={actualSrc}
       {...props}
-      objectFit={exists ? objectFit : "contain"}
+      style={mergedStyle}
       onError={() => setExists(false)}
+      {...(fill ? { fill: true } : { width, height })}
     />
   );
 }

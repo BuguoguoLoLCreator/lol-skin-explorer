@@ -27,20 +27,16 @@ export function Popup({ skin }) {
       <nav>
         <div>
           <User />
-          <Link href="/champions/[key]" as={`/champions/${meta.champion.key}`}>
-            <a>
-              <span>{meta.champion.name}</span>
-            </a>
+          <Link href="/champions/[key]" as={`/champions/${meta.champion.key}`} passHref>
+            <span>{meta.champion.name}</span>
           </Link>
         </div>
         {!!meta.universes.length && (
           <div>
             <Globe />
             {meta.universes.map((u) => (
-              <Link key={u.id} href="/universes/[id]" as={`/universes/${u.id}`}>
-                <a>
-                  <span>{u.name}</span>
-                </a>
+              <Link key={u.id} href="/universes/[id]" as={`/universes/${u.id}`} passHref>
+                <span>{u.name}</span>
               </Link>
             ))}
           </div>
@@ -49,10 +45,8 @@ export function Popup({ skin }) {
           <div>
             <Folder />
             {meta.skinlines.map((l) => (
-              <Link key={l.id} href="/skinlines/[id]" as={`/skinlines/${l.id}`}>
-                <a>
-                  <span>{l.name}</span>
-                </a>
+              <Link key={l.id} href="/skinlines/[id]" as={`/skinlines/${l.id}`} passHref>
+                <span>{l.name}</span>
               </Link>
             ))}
           </div>
@@ -78,12 +72,11 @@ export function Popup({ skin }) {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    <Image
+                    <Image fill
                       loading="eager"
                       unoptimized
                       src={asset(chroma.chromaPath)}
-                      layout="fill"
-                      objectFit="contain"
+                      style={{ objectFit: 'contain', width: '100%', height: '100%' }}
                       alt={skin.name}
                     />
                   </a>
@@ -115,7 +108,7 @@ export function Popup({ skin }) {
         <h3>
           <span>
             <Box />
-            去Khada查看{meta.champion.name}的3D模型
+            去卡达查看{meta.champion.name}的3D模型
           </span>
           <ExternalLink />
         </h3>

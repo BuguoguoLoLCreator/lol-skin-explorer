@@ -28,17 +28,15 @@ export const Header = ({ flat, backTo }) => {
           [styles.search]: showSearch,
         })}
       >
-        <Link href={back ?? "/"} as={back ?? "/"}>
-          <a className={styles.logo}>
-            {backTo && <ArrowLeft />}
-            <Image
-              priority
-              src={logo}
-              alt="Logo"
-              height={36}
-              width={178}
-            />
-          </a>
+        <Link href={back ?? "/"} as={back ?? "/"} className={styles.logo} passHref>
+          {backTo && <ArrowLeft />}
+          <Image
+            priority
+            src={logo}
+            alt="Logo"
+            height={36}
+            width={178}
+          />
         </Link>
         <div className={styles.omnisearch}>
           <Omnisearch ref={omnisearch} />
@@ -59,31 +57,43 @@ export const Header = ({ flat, backTo }) => {
           <ul>
             <li>
               <Link href="/shortcuts">
-                <a>快捷键与手势</a>
+                使用帮助
+              </Link>
+            </li>
+            <li>
+              <Link href="/changelog" as="/changelog">
+                更新日志
               </Link>
             </li>
             <li className={styles.divider} />
             <li>
-              <Link href="/changelog" as="/changelog">
-                <a>站点更新日志</a>
-              </Link>
-            </li>
-            {/* <li>
-              <Link href="/about" as="/about">
-                <a>About</a>
-              </Link>
-            </li> */}
-            {/* <li>
-              <Link href="/sponsor" as="/sponsor">
-                <a>Sponsor</a>
-              </Link>
-            </li> */}
-            <li className={styles.divider} />
-            {/* <li>
-              <a href="https://discord.gg" target="_blank" rel="noreferrer">
-                Discord <ExternalLink />
+              <a
+                href="https://voice.buguoguo.cn/#/privacy"
+                target="_blank"
+                rel="noreferrer"
+              >
+                隐私条款 <ExternalLink />
               </a>
-            </li> */}
+            </li>
+            <li>
+              <a
+                href="https://voice.buguoguo.cn/#/terms"
+                target="_blank"
+                rel="noreferrer"
+              >
+                使用条款 <ExternalLink />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://voice.buguoguo.cn/#/about"
+                target="_blank"
+                rel="noreferrer"
+              >
+                关于我们 <ExternalLink />
+              </a>
+            </li>
+            <li className={styles.divider} />
             <li>
               <a
                 href="https://buguoguo.cn"
@@ -104,7 +114,16 @@ export const Header = ({ flat, backTo }) => {
             </li>
             <li>
               <a
-                href="https://buguoguo.cn"
+                href="https://3d.buguoguo.cn"
+                target="_blank"
+                rel="noreferrer"
+              >
+                联盟宇宙丨模型 <ExternalLink />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://buguoguo.cn/sites/skinexplorer.html"
                 target="_blank"
                 rel="noreferrer"
               >

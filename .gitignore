@@ -48,3 +48,4 @@ yarn-error.log*
 **/public/fallback-*.js
 
 .vscode
+.cursor

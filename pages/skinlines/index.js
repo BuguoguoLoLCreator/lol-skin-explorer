@@ -24,7 +24,7 @@ function SkinlinesList() {
             as={`/skinlines/${l.id}`}
             prefetch={false}
           >
-            <a>{l.name}</a>
+            {l.name}
           </Link>
         </div>
       ))}

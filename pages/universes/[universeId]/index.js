@@ -26,11 +26,9 @@ function Skinline({ sortByRarity, skinline, linkTo }) {
   return (
     <>
       <h2 className={styles.groupTitle}>
-        <Link href="/skinlines/[skinlineId]" as={`/skinlines/${skinline.id}`}>
-          <a>
-            <Folder />
-            {skinline.name}
-          </a>
+        <Link href="/skinlines/[skinlineId]" as={`/skinlines/${skinline.id}`} passHref>
+          <Folder />
+          {skinline.name}
         </Link>
       </h2>
       <SkinGrid
@@ -69,10 +67,9 @@ function _Page() {
           <div>
             {splash && (
               <div className={styles.background}>
-                <Image
+                <Image fill
                   unoptimized
-                  layout="fill"
-                  objectFit="cover"
+                  style={{ objectFit: 'cover', width: '100%', height: '100%' }}
                   src={splash}
                   alt={universe.name}
                 />

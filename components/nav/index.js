@@ -7,35 +7,17 @@ export function Nav({ active, filters }) {
   return (
     <nav>
       <div className={styles.tabs}>
-        <Link href="/" as="/">
-          <a
-            className={classNames({
-              [styles.active]: active === "champions",
-            })}
-          >
-            <User />
-            英雄
-          </a>
+        <Link href="/" as="/" className={classNames({ [styles.active]: active === "champions" })} passHref>
+          <User />
+          英雄
         </Link>
-        <Link href="/universes" as="/universes">
-          <a
-            className={classNames({
-              [styles.active]: active === "universes",
-            })}
-          >
-            <Globe />
-            宇宙
-          </a>
+        <Link href="/universes" as="/universes" className={classNames({ [styles.active]: active === "universes" })} passHref>
+          <Globe />
+          宇宙
         </Link>
-        <Link href="/skinlines" as="/skinlines">
-          <a
-            className={classNames({
-              [styles.active]: active === "skinlines",
-            })}
-          >
-            <Folder />
-            皮肤系列
-          </a>
+        <Link href="/skinlines" as="/skinlines" className={classNames({ [styles.active]: active === "skinlines" })} passHref>
+          <Folder />
+          皮肤系列
         </Link>
       </div>
       {filters && <div className={styles.filters}>{filters}</div>}

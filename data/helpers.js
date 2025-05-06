@@ -172,10 +172,10 @@ export function useLocalStorageState(name, initialValue) {
 
 export function useSortedSkins(sortByRarity, skins) {
   if (sortByRarity) {
-    const keys = Object.keys(rarities).reverse();
+    const keys = Object.keys(rarities).map(Number).reverse();
     return skins
       .slice()
-      .sort((a, b) => keys.indexOf(b.rarity) - keys.indexOf(a.rarity));
+      .sort((a, b) => keys.indexOf(b.regionRarityId) - keys.indexOf(a.regionRarityId));
   }
 
   return skins;

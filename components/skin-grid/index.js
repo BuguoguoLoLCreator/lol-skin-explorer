@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import Image from "../image";
+import Image from "next/image";
 import Link from "next/link";
 import { asset, rarity } from "../../data/helpers";
 import styles from "./styles.module.scss";
@@ -16,32 +16,30 @@ export function SkinGrid({ skins, linkTo }) {
       {skins.map((skin) => {
         const r = rarity(skin);
         return (
-          <Link key={skin.id} href={linkTo(skin)} as={linkTo(skin)}>
-            <a>
-              <Image
+          <Link key={skin.id} href={linkTo(skin)} as={linkTo(skin)} passHref>
+            <span className={styles.imageContainer}>
+              <Image fill
                 className={styles.tile}
                 unoptimized
                 src={asset(skin.tilePath)}
                 alt={skin.name}
-                width={300}
-                height={300}
+                objectFit="cover"
               />
-              <div>
-                {skin.name}
-                <div className={classNames({ [styles.rarityBadge]: r })}>
-                  {r && (
-                    <Image
-                      src={r[0]}
-                      title={r[1]}
-                      alt={r[1]}
-                      objectFit="contain"
-                      objectPosition="center"
-                      layout="fill"
-                    />
-                  )}
-                </div>
+            </span>
+            <div>
+              <span className={styles.skinName}>{skin.name}</span>
+              <div className={classNames({ [styles.rarityBadge]: r })}>
+                {r && (
+                  <Image fill
+                    src={r[0]}
+                    title={r[1]}
+                    alt={r[1]}
+                    objectFit="contain"
+                    objectPosition="center"
+                  />
+                )}
               </div>
-            </a>
+            </div>
           </Link>
         );
       })}

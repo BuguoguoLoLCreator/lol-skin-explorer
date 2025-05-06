@@ -443,14 +443,12 @@ function _SkinViewer({
         />
         <div className={styles.overlay}>
           <header>
-            <Link href={backTo} as={backTo}>
-              <a className={styles.backTo}>
-                <ArrowLeft />
-                <div>
-                  {collectionIcon}
-                  {collectionName}
-                </div>
-              </a>
+            <Link href={backTo} as={backTo} className={styles.backTo} passHref>
+              <ArrowLeft />
+              <div>
+                {collectionIcon}
+                {collectionName}
+              </div>
             </Link>
             <div className={styles.controls}>
               <div onClick={toggleFill} title="填充屏幕 (Z)">
@@ -487,19 +485,15 @@ function _SkinViewer({
             </div>
           </header>
           {prev && (
-            <Link href={router.pathname} as={linkTo(prev)} replace>
-              <a className={styles.prev}>
-                <ArrowLeft />
-                <div>{prev.name}</div>
-              </a>
+            <Link href={router.pathname} as={linkTo(prev)} replace className={styles.prev} passHref>
+              <ArrowLeft />
+              <div>{prev.name}</div>
             </Link>
           )}
           {next && (
-            <Link href={router.pathname} as={linkTo(next)} replace>
-              <a className={styles.next}>
-                <div>{next.name}</div>
-                <ArrowRight />
-              </a>
+            <Link href={router.pathname} as={linkTo(next)} replace className={styles.next} passHref>
+              <div>{next.name}</div>
+              <ArrowRight />
             </Link>
           )}
         </div>
@@ -520,7 +514,6 @@ function _SkinViewer({
                     alt={r[1]}
                     objectFit="contain"
                     objectPosition="center"
-                    layout="fixed"
                     width={18}
                     height={18}
                   />
@@ -545,11 +538,10 @@ function _SkinViewer({
               <source src={asset(vidPath, patch || "pbe")} />
             </video>
           ) : (
-            <Image
+            <Image fill
               unoptimized
               priority
               src={asset(imgPath, patch || "pbe")}
-              layout="fill"
               alt={skin.name}
               objectFit="cover"
             />
@@ -578,11 +570,10 @@ function _SkinViewer({
               <source src={asset(vidPath, patch || "pbe")} />
             </video>
           ) : (
-            <Image
+            <Image fill
               priority
               unoptimized
               src={asset(imgPath, patch || "pbe")}
-              layout="fill"
               alt={skin.name}
               objectFit={objectFit}
               objectPosition={objectPosition}
