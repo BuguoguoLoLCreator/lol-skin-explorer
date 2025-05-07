@@ -1,23 +1,24 @@
+![lol-skin-explorer](https://socialify.git.ci/BuguoguoLoLCreator/lol-skin-explorer/image?description=1&logo=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F126896839&name=1&owner=1&theme=Auto)
+
+# [布锅锅联盟宇宙丨原画](https://splash.buguoguo.cn)
+
+你是否曾想查看某位英雄的皮肤原画，却又不想特意打开游戏客户端？又或者只是想轻松地浏览某个特定的皮肤宇宙？现在，这一切都变得轻而易举！
+
+## 功能亮点
+
+* 与 PBE 测试服同步更新！（抢先查看尚未上线的皮肤。）
+* 皮肤按英雄、系列和宇宙分类整理。
+* 可浏览旧版皮肤原画（最早可追溯到 7.1 版本）。
+* 支持添加至 Safari（iOS）或 Chrome（Android），体验更沉浸。
+* 支持键盘快捷键与手势操作，体验更流畅。
+* 页面加载速度极快。
+
+## 特别鸣谢
+
+- [CommunityDragon](https://communitydragon.org)
+- [preyneyv](https://github.com/preyneyv/lol-skin-explorer)
+
+
+> BuguoguoLoLCreator was created under Riot Games' "Legal Jibber Jabber" policy using assets owned by Riot Games. Riot Games does not endorse or sponsor this project.
+
 ![Skin Explorer Logo](assets/banner.png)
-
-# [Skin Explorer](https://skinexplorer.lol)
-
-![Vercel](https://therealsujitk-vercel-badge.vercel.app/?app=skin-explorer)
-
-Ever wanted to look at the splash art for a champion, but didn't feel like opening up your client just to do it? How about casually browsing through a specific skin universe? Well, you can do all that and more with Skin Explorer!
-
-## Features
-
-- Synchronized with the PBE patch cycle! (See skins before they hit live servers.)
-- Skins grouped by champions, skinlines, and universes.
-- Browse through old splash art (all the way back to patch 7.1).
-- Add to Home Screen on Safari (iOS) and Chrome (Android) to get a more immersive experience!
-- Keyboard shortcuts and gestures for fluent navigation.
-- Extremely fast load times.
-
-## Special Thanks
-
-- The team running [CommunityDragon](https://communitydragon.org/) for maintaining such a complete archive of game files. This project wouldn't exist without them.
-- The commentors on [my post on r/leagueoflegends](https://www.reddit.com/r/leagueoflegends/comments/r7c0ir/i_made_skin_explorer_an_online_skin_splash_art/) for lots of feedback, suggestions, and resources.
-
-> Skin Explorer was created under Riot Games' "Legal Jibber Jabber" policy using assets owned by Riot Games. Riot Games does not endorse or sponsor this project.
