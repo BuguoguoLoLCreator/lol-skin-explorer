@@ -25,7 +25,12 @@ export default function App({ Component, pageProps }) {
         />
       </Head>
       <PropsProvider value={pageProps}>
-        {getLayout(<Component {...pageProps} />)}
+        {getLayout(
+          <Component
+            key={pageProps.key}
+            {...(() => { const { key, ...rest } = pageProps; return rest; })()}
+          />
+        )}
       </PropsProvider>
     </>
   );

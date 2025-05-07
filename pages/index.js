@@ -42,7 +42,7 @@ function ChampionsList({ role }) {
               className={styles.img}
               src={asset(c.squarePortraitPath)}
               alt={c.name}
-              objectFit="cover"
+              style={{ objectFit: "cover" }}
             />
           </span>
           <div>{c.name}</div>

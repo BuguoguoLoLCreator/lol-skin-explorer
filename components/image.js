@@ -8,9 +8,9 @@ export default function Image({ src, style, objectFit, objectPosition, fill, wid
 
   let actualSrc = exists ? src : placeholder;
   const mergedStyle = {
-    ...(style || {}),
-    objectFit: objectFit || undefined,
-    objectPosition: objectPosition || undefined,
+    ...((style && typeof style === 'object') ? style : {}),
+    ...(style?.objectFit ? {} : (objectFit ? { objectFit } : {})),
+    ...(style?.objectPosition ? {} : (objectPosition ? { objectPosition } : {})),
   };
 
   return (

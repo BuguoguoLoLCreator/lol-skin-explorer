@@ -23,19 +23,21 @@ export function SkinGrid({ skins, linkTo }) {
                 unoptimized
                 src={asset(skin.tilePath)}
                 alt={skin.name}
-                objectFit="cover"
+                style={{ objectFit: "cover" }}
+                priority
               />
             </span>
             <div>
               <span className={styles.skinName}>{skin.name}</span>
               <div className={classNames({ [styles.rarityBadge]: r })}>
                 {r && (
-                  <Image fill
+                  <Image
                     src={r[0]}
                     title={r[1]}
                     alt={r[1]}
-                    objectFit="contain"
-                    objectPosition="center"
+                    style={{ objectFit: "contain", objectPosition: "center" }}
+                    height={20}
+                    width={20}
                   />
                 )}
               </div>

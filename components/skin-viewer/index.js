@@ -127,6 +127,7 @@ function _SkinViewer({
   const [patch, setPatch] = useState("");
   const showUIRef = useRef();
   const dimensions = useRef({ width: 1, height: 1 });
+  const lastTapRef = useRef(0); // 用于移动端双击判断
   
   useEffect(() => {
     setDeltaX(0);
@@ -317,7 +318,6 @@ function _SkinViewer({
 
   const handlers = useSwipeable({
     onSwipeStart(e) {
-      e.event.preventDefault();
       if (fill) {
         draggingOrigin = [e.deltaX, e.deltaY];
       }
@@ -335,7 +335,6 @@ function _SkinViewer({
       }
     },
     onSwiped(e) {
-      e.event.preventDefault();
       if (fill) {
         const { width, height } = dimensions.current;
         let left = e.vxvy[0] / (width - window.innerWidth),
@@ -353,17 +352,13 @@ function _SkinViewer({
       }
     },
     onSwipedLeft(e) {
-      e.event.preventDefault();
       !fill && e.velocity > 0.6 && goNext(true);
     },
     onSwipedRight(e) {
-      e.event.preventDefault();
       !fill && e.velocity > 0.6 && goPrevious(true);
     },
     onSwipedUp(e) {
-      e.event.preventDefault();
       const { width, height } = dimensions.current;
-
       if (
         (!fill || (height / width) * window.innerWidth <= window.innerHeight) &&
         meta.changes
@@ -374,9 +369,30 @@ function _SkinViewer({
           ] || ""
         );
     },
+    onSwipedDown(e) {
+      toggleCentered();
+    },
     preventDefaultTouchmoveEvent: true,
+    preventScrollOnSwipe: true,
     delta: { left: 3, right: 3, up: 50 },
   });
+
+  // patch、showVideo、centered、imgPath、vidPath、skin 变化时重置 loaded，fill 不再触发
+  useEffect(() => {
+    setLoaded(false);
+  }, [patch, showVideo, centered, imgPath, vidPath, skin]);
+
+  function handleTouchEnd(e) {
+    // 只处理单指触摸
+    if (e.touches && e.touches.length > 0) return;
+    const now = Date.now();
+    if (now - lastTapRef.current < 300) {
+      toggleFill();
+      lastTapRef.current = 0;
+    } else {
+      lastTapRef.current = now;
+    }
+  }
 
   return (
     <>
@@ -411,6 +427,12 @@ function _SkinViewer({
           [styles.show]: showUI,
         })}
       >
+        {/* loading 动画 */}
+        {!loaded && (
+          <div className={styles.loadingWrapper}>
+            <Loading />
+          </div>
+        )}
         <div
           className={styles.hitbox}
           {...handlers}
@@ -421,6 +443,7 @@ function _SkinViewer({
             })
           }
           onDoubleClick={toggleFill}
+          onTouchEnd={handleTouchEnd}
           onMouseDown={(e) => {
             if (fill) {
               draggingOrigin = [e.screenX, e.screenY];
@@ -534,6 +557,7 @@ function _SkinViewer({
               loop
               key={`${vidPath}-${patch}`}
               style={{ objectFit: "cover" }}
+              onLoadedData={() => setLoaded(true)}
             >
               <source src={asset(vidPath, patch || "pbe")} />
             </video>
@@ -544,6 +568,7 @@ function _SkinViewer({
               src={asset(imgPath, patch || "pbe")}
               alt={skin.name}
               objectFit="cover"
+              onLoad={() => setLoaded(true)}
             />
           )}
         </div>
@@ -577,13 +602,7 @@ function _SkinViewer({
               alt={skin.name}
               objectFit={objectFit}
               objectPosition={objectPosition}
-              onLoadingComplete={({ naturalHeight, naturalWidth }) => {
-                dimensions.current = {
-                  width: naturalWidth,
-                  height: naturalHeight,
-                };
-                setLoaded(true);
-              }}
+              onLoad={() => setLoaded(true)}
             />
           )}
         </main>
