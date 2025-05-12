@@ -60,7 +60,6 @@ export class Store {
     );
   }
 
-  // 获取数据更新时间的格式化字符串
   getLastUpdateTime() {
     if (!this.persistentVars || !this.persistentVars.lastUpdate) {
       return "未知";

@@ -2,14 +2,26 @@ import classNames from "classnames";
 import styles from "./styles.module.scss";
 import { useProps } from "../../data/contexts";
 import getConfig from "next/config";
+import { useEffect, useState } from "react";
+import { store } from "../../data/store";
 
 const { publicRuntimeConfig } = getConfig();
 
-export function Footer({ flat, updateTime: propUpdateTime }) {
+function UpdateTime() {
+  const [time, setTime] = useState(null);
+  
+  useEffect(() => {
+    setTime(store.getLastUpdateTime());
+  }, []);
+
+  if (time === null) return null;
+  
+  return <>，数据更新于：{time}</>;
+}
+
+export function Footer({ flat }) {
   const props = useProps();
   const { patch } = props;
-  // 优先使用从props直接传入的updateTime，其次使用从useProps中获取的updateTime
-  const updateTime = propUpdateTime || props.updateTime;
   
   return (
     <footer className={classNames(styles.footer, { [styles.flat]: flat })}>
@@ -22,8 +34,8 @@ export function Footer({ flat, updateTime: propUpdateTime }) {
             rel="noreferrer"
           >
             CommunityDragon
-          </a>{"，"}
-          {updateTime && `数据更新于：${updateTime}`}
+          </a>
+          {typeof window !== 'undefined' && <UpdateTime />}
         </p>
         <p>
         BuguoguoLoLCreator was created under Riot Games&apos;{" "}
