@@ -12,6 +12,7 @@ const NON_ALPHANUMERIC_REGEX = /[^A-Za-z0-9]/g;
 export class Store {
   patch = new Patch();
   changes = require("./.cache/changes.json");
+  persistentVars = require("./.cache/persistentVars.json");
 
   constructor() {
     const { champions, skinlines, universes, skins } = this.patch;
@@ -57,6 +58,22 @@ export class Store {
         })),
       FUSE_OPTIONS
     );
+  }
+
+  // 获取数据更新时间的格式化字符串
+  getLastUpdateTime() {
+    if (!this.persistentVars || !this.persistentVars.lastUpdate) {
+      return "未知";
+    }
+    
+    return new Date(this.persistentVars.lastUpdate).toLocaleString('zh-CN', { 
+      year: 'numeric', 
+      month: '2-digit', 
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
   }
 
   fuse = new Fuse([], FUSE_OPTIONS);

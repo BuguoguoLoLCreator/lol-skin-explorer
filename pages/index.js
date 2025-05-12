@@ -108,11 +108,13 @@ Index.getLayout = (page) => <Layout withNew>{page}</Layout>;
 
 export async function getStaticProps() {
   const champions = store.patch.champions;
+  const updateTime = store.getLastUpdateTime();
   
   return {
     props: {
       champions,
       patch: store.patch.fullVersionString,
+      updateTime,
       added: await prepareAdditions(),
     },
   };

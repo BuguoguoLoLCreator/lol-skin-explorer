@@ -132,6 +132,7 @@ export async function getStaticProps(ctx) {
     skinlines: allSkinlines,
     skins: allSkins,
   } = store.patch;
+  const updateTime = store.getLastUpdateTime();
 
   const universe = universes.find((u) => u.id.toString() === universeId);
   if (!universe)
@@ -149,6 +150,7 @@ export async function getStaticProps(ctx) {
       universe,
       skinlines,
       patch: store.patch.fullVersionString,
+      updateTime,
     },
   };
 }

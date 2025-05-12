@@ -5,8 +5,12 @@ import getConfig from "next/config";
 
 const { publicRuntimeConfig } = getConfig();
 
-export function Footer({ flat }) {
-  const { patch } = useProps();
+export function Footer({ flat, updateTime: propUpdateTime }) {
+  const props = useProps();
+  const { patch } = props;
+  // 优先使用从props直接传入的updateTime，其次使用从useProps中获取的updateTime
+  const updateTime = propUpdateTime || props.updateTime;
+  
   return (
     <footer className={classNames(styles.footer, { [styles.flat]: flat })}>
       <div>
@@ -18,7 +22,8 @@ export function Footer({ flat }) {
             rel="noreferrer"
           >
             CommunityDragon
-          </a>{" "}
+          </a>{"，"}
+          {updateTime && `数据更新于：${updateTime}`}
         </p>
         <p>
         BuguoguoLoLCreator was created under Riot Games&apos;{" "}

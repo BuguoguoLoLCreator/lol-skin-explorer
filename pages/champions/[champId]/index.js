@@ -93,6 +93,7 @@ export async function getStaticProps(ctx) {
   const { champId } = ctx.params;
 
   const { champions, skins: allSkins } = store.patch;
+  const updateTime = store.getLastUpdateTime();
 
   const champion = champions.find((c) => c.key === champId);
   if (!champion) {
@@ -108,6 +109,7 @@ export async function getStaticProps(ctx) {
       champion,
       skins,
       patch: store.patch.fullVersionString,
+      updateTime,
     },
   };
 }
