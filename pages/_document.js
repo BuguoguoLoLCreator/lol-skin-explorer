@@ -12,8 +12,6 @@ class Document extends BaseDocument {
             href="https://communitydragon.buguoguo.cn"
             crossOrigin="true"
           />
-          <link rel="manifest" href="/manifest.webmanifest" />
-          <link rel="apple-touch-icon" href="/icons/logo-192.png" />
           <link
             type="application/opensearchdescription+xml"
             rel="search"

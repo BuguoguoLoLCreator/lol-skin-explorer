@@ -6,6 +6,8 @@ import {
   useMemo,
   useState,
   Fragment,
+  lazy,
+  Suspense,
 } from "react";
 import classNames from "classnames";
 import { useSwipeable } from "react-swipeable";
@@ -22,8 +24,6 @@ import {
   Minimize2,
   User,
   Users,
-  Video, 
-  VideoOff
 } from "lucide-react";
 import {
   asset,
@@ -37,6 +37,19 @@ import {
 } from "../../data/helpers";
 import { Popup } from "./popup";
 import styles from "./styles.module.scss";
+
+// 使用动态导入修复水合问题
+const VideoIcon = lazy(() => 
+  import("lucide-react").then(mod => ({ 
+    default: mod.Video 
+  }))
+);
+
+const VideoOffIcon = lazy(() => 
+  import("lucide-react").then(mod => ({ 
+    default: mod.VideoOff 
+  }))
+);
 
 const _supportsPrefetch = () => {
   if (typeof window === "undefined") return false;
@@ -129,6 +142,27 @@ function _SkinViewer({
   const dimensions = useRef({ width: 1, height: 1 });
   const lastTapRef = useRef(0); // 用于移动端双击判断
   
+  // 添加客户端挂载状态
+  const [isClient, setIsClient] = useState(false);
+  
+  // 在组件挂载后设置为客户端状态
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // 添加视频已加载标志
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const videoRefs = useRef({
+    letterBox: null,
+    main: null
+  });
+
+  // 处理视频加载完成事件
+  const handleVideoLoaded = useCallback(() => {
+    setVideoLoaded(true);
+    setLoaded(true);
+  }, []);
+
   useEffect(() => {
     setDeltaX(0);
     setSmoothX(false);
@@ -184,7 +218,23 @@ function _SkinViewer({
 
   // 用于切换显示视频或图片
   const toggleShowVideo = useCallback(() => {
-    setShowVideo((prev) => !prev);
+    // 切换显示状态
+    setShowVideo((prev) => {
+      const newState = !prev;
+      
+      // 如果有视频引用，控制播放状态
+      if (videoRefs.current.main) {
+        if (newState) {
+          videoRefs.current.main.play();
+          videoRefs.current.letterBox?.play();
+        } else {
+          videoRefs.current.main.pause();
+          videoRefs.current.letterBox?.pause();
+        }
+      }
+      
+      return newState;
+    });
   }, []);
 
   const goPrevious = useCallback(
@@ -235,7 +285,7 @@ function _SkinViewer({
     let fileName;
   
     // 判断是否为 centered 状态
-    const centeredState = centered ? " - 聚焦" : " - 非聚焦";
+    const centeredState = centered ? " - 聚焦原画" : " - 原画";
   
     // 如果是视频，则下载视频文件
     if (showVideo && vidPath) {
@@ -379,8 +429,11 @@ function _SkinViewer({
 
   // patch、showVideo、centered、imgPath、vidPath、skin 变化时重置 loaded，fill 不再触发
   useEffect(() => {
-    setLoaded(false);
-  }, [patch, showVideo, centered, imgPath, vidPath, skin]);
+    // 只有在非视频模式或视频尚未加载时才重置 loaded 状态
+    if (!showVideo || !vidPath || !videoLoaded) {
+      setLoaded(false);
+    }
+  }, [patch, centered, imgPath, skin, showVideo, vidPath, videoLoaded]);
 
   function handleTouchEnd(e) {
     // 只处理单指触摸
@@ -483,9 +536,12 @@ function _SkinViewer({
               <div onClick={downloadActive} title="下载 (D)">
                 <Download />
               </div> 
-              {vidPath && (
+              {/* 修改视频控件部分，确保服务端和客户端渲染一致 */}
+              {vidPath && isClient && (
                 <div onClick={toggleShowVideo} title="切换动/静态原画 (V)">
-                  {showVideo ? <Video /> : <VideoOff />}
+                  <Suspense fallback={null}>
+                    {showVideo ? <VideoIcon /> : <VideoOffIcon />}
+                  </Suspense>
                 </div>
               )}
 
@@ -549,18 +605,34 @@ function _SkinViewer({
           <Popup skin={skin} />
         </div>
         <div className={styles.letterBox}>
-          {/* 根据 showVideo 状态控制视频和图片的显示 */}
-          {showVideo && vidPath ? (
-            <video
-              muted
-              autoPlay
-              loop
-              key={`${vidPath}-${patch}`}
-              style={{ objectFit: "cover" }}
-              onLoadedData={() => setLoaded(true)}
-            >
-              <source src={asset(vidPath, patch || "pbe")} />
-            </video>
+          {/* 修改视频渲染逻辑，保持视频加载状态 */}
+          {isClient && vidPath ? (
+            <>
+              <video
+                ref={el => videoRefs.current.letterBox = el}
+                muted
+                autoPlay={showVideo}
+                loop
+                key={`letterbox-${vidPath}-${patch}`}
+                style={{ 
+                  objectFit: "cover",
+                  display: showVideo ? "block" : "none" 
+                }}
+                onLoadedData={handleVideoLoaded}
+              >
+                <source src={asset(vidPath, patch || "pbe")} />
+              </video>
+              {(!showVideo || !videoLoaded) && (
+                <Image fill
+                  unoptimized
+                  priority
+                  src={asset(imgPath, patch || "pbe")}
+                  alt={skin.name}
+                  objectFit="cover"
+                  onLoad={() => setLoaded(true)}
+                />
+              )}
+            </>
           ) : (
             <Image fill
               unoptimized
@@ -577,23 +649,42 @@ function _SkinViewer({
           className={styles.main}
           style={{ transform: `translateX(${deltaX})` }}
         >
-          {showVideo && vidPath ? (
-            <video
-              muted
-              autoPlay
-              loop
-              key={`${vidPath}-${patch}`}
-              style={{ objectFit, objectPosition }}
-              onLoadedData={() => setLoaded(true)}
-              onLoadedMetadata={(e) => {
-                dimensions.current = {
-                  width: e.target.videoWidth,
-                  height: e.target.videoHeight,
-                };
-              }}
-            >
-              <source src={asset(vidPath, patch || "pbe")} />
-            </video>
+          {/* 修改视频渲染逻辑，保持视频加载状态 */}
+          {isClient && vidPath ? (
+            <>
+              <video
+                ref={el => videoRefs.current.main = el}
+                muted
+                autoPlay={showVideo}
+                loop
+                key={`main-${vidPath}-${patch}`}
+                style={{ 
+                  objectFit,
+                  objectPosition,
+                  display: showVideo ? "block" : "none"
+                }}
+                onLoadedData={handleVideoLoaded}
+                onLoadedMetadata={(e) => {
+                  dimensions.current = {
+                    width: e.target.videoWidth,
+                    height: e.target.videoHeight,
+                  };
+                }}
+              >
+                <source src={asset(vidPath, patch || "pbe")} />
+              </video>
+              {(!showVideo || !videoLoaded) && (
+                <Image fill
+                  priority
+                  unoptimized
+                  src={asset(imgPath, patch || "pbe")}
+                  alt={skin.name}
+                  objectFit={objectFit}
+                  objectPosition={objectPosition}
+                  onLoad={() => setLoaded(true)}
+                />
+              )}
+            </>
           ) : (
             <Image fill
               priority
