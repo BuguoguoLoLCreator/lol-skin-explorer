@@ -19,15 +19,6 @@ export function Footer({ flat }) {
           >
             CommunityDragon
           </a>{" "}
-          和{" "}
-          <a
-            target="_blank"
-            href="https://leagueoflegends.fandom.com/"
-            rel="noreferrer"
-          >
-            League of Legends Wiki
-          </a>
-          。
         </p>
         <p>
         BuguoguoLoLCreator was created under Riot Games&apos;{" "}

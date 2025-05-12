@@ -1,3 +1,9 @@
+/* 字体定义 */
+@font-face {
+    font-family: 'HarmonyOS Sans SC';
+    src: url('https://cdn.buguoguo.cn/static/fonts/harmonyos-fonts/fonts/HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Medium.woff2') format('woff2');
+}
+
 html {
   -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape while allowing user zoom */
 }
@@ -6,10 +12,15 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: Poppins, sans-serif;
+  font-family: 'HarmonyOS Sans SC', sans-serif !important;
   background: rgb(12, 15, 19);
   color: white;
   /* touch-action: pan-y; */
+}
+
+/* 确保所有元素使用字体 */
+* {
+  font-family: 'HarmonyOS Sans SC', sans-serif !important;
 }
 
 a {

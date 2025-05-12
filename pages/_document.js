@@ -9,22 +9,8 @@ class Document extends BaseDocument {
           <meta name="theme-color" content="#0C0F13" />
           <link
             rel="preconnect"
-            href="https://fonts.googleapis.com"
-            crossOrigin="true"
-          />
-          <link
-            rel="preconnect"
             href="https://communitydragon.buguoguo.cn"
             crossOrigin="true"
-          />
-          <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossOrigin="true"
-          />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap"
-            rel="stylesheet"
           />
           <link rel="manifest" href="/manifest.webmanifest" />
           <link rel="apple-touch-icon" href="/icons/logo-192.png" />

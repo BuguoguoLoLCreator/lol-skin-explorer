@@ -16,6 +16,7 @@ import { store } from "../data/store";
 import { Nav } from "../components/nav";
 import { Layout } from "../components";
 import { prepareAdditions } from "../components/new-additions/helpers";
+import { Background } from "../components/background";
 
 function ChampionsList({ role }) {
   const { champions } = useProps();
@@ -74,6 +75,7 @@ export default function Index() {
           `随时随地查看英雄联盟皮肤原画， ${champions.length} 个英雄尽收于此！`
         )}
       </Head>
+      <Background />
       <div {...handlers} className={styles.container}>
         <Nav
           active="champions"
@@ -105,9 +107,11 @@ export default function Index() {
 Index.getLayout = (page) => <Layout withNew>{page}</Layout>;
 
 export async function getStaticProps() {
+  const champions = store.patch.champions;
+  
   return {
     props: {
-      champions: store.patch.champions,
+      champions,
       patch: store.patch.fullVersionString,
       added: await prepareAdditions(),
     },

@@ -8,6 +8,7 @@
   transition: color 200ms;
   border-top: 1px solid rgb(31, 39, 48);
   position: relative;
+  z-index: 2;
   gap: 16px;
 
   p {
@@ -21,6 +22,8 @@
 
   a[href] {
     text-decoration: underline;
+    position: relative;
+    z-index: 3;
     &:hover {
       color: rgba(121, 163, 207, 0.8);
     }
@@ -45,6 +48,8 @@
   flex-direction: column;
   justify-content: space-between;
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
 @media screen and (max-width: 1000px) {

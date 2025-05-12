@@ -1,18 +1,17 @@
 {
-  "name": "lol-skin-explorer",
+  "name": "skin-explorer-buguoguo",
   "description": "英雄联盟原画站",
   "author": {
     "email": "pranavnutalapati@gmail.com",
     "name": "Pranav Nutalapati"
   },
-  "version": "2.0.1",
+  "version": "2.0.2",
   "private": true,
   "scripts": {
-    "precache": "node data/_precache.mjs",
-    "dev": "npm run precache && next dev",
-    "build": "npm run precache && next build",
+    "dev": "next dev",
+    "build": "node data/Scraper.mjs && next build",
     "start": "next start",
-    "server": "npm run precache && next build && next start",
+    "server": "node data/Scraper.mjs && next build && next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -24,7 +23,6 @@
     "classnames": "^2.5.1",
     "dotenv": "^16.5.0",
     "fuse.js": "^7.1.0",
-    "ioredis": "^5.6.1",
     "lucide-react": "^0.507.0",
     "next": "^15.3.1",
     "next-absolute-url": "^1.2.2",

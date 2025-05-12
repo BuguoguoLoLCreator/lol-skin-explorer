@@ -7,6 +7,26 @@
 
 <header>
 
+## [v2.0.2](https://github.com/BuguoguoLoLCreator/lol-skin-explorer)
+
+###### 2025/05/12
+
+</header>
+
+### 系统
+- 优化皮肤数据更新逻辑，提高更新部署效率
+
+### 体验
+- 微调界面样式
+- 使用HarmonyOS Sans作为全局字体，优化文本清晰度
+
+### 已知问题
+- 部分移动端国产浏览器(夸克)无法下载原画，可能是阉割了blob数据解析，建议更换为[Via](https://viayoo.com/zh-cn/)浏览器
+
+---
+
+<header>
+
 ## [v2.0.1](https://github.com/BuguoguoLoLCreator/lol-skin-explorer)
 
 ###### 2025/05/06

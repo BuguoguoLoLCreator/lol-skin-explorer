@@ -5,6 +5,8 @@
   margin: auto;
   box-sizing: border-box;
   color: rgb(165, 178, 196);
+  position: relative;
+  z-index: 1;
 
   a[href] {
     text-decoration: underline;
@@ -22,6 +24,7 @@
     margin-bottom: 0.5em;
     margin-top: 1em;
     line-height: 1.1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
 
   h2 {
