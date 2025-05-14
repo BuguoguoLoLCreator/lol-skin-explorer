@@ -7,6 +7,30 @@
 
 <header>
 
+## [v2.0.3](https://github.com/BuguoguoLoLCreator/lol-skin-explorer)
+
+###### 2025/05/15
+
+</header>
+
+### 系统
+- 新增[臻彩原画](https://splash.buguoguo.cn/prestigechromas)相关数据更新功能
+
+### 新功能
+- 支持查看[腾讯英雄联盟专属炫彩原画(臻彩)](https://splash.buguoguo.cn/prestigechromas)
+- [臻彩原画](https://splash.buguoguo.cn/prestigechromas)支持按英雄或臻彩数量排序
+- [臻彩原画](https://splash.buguoguo.cn/prestigechromas)支持聚焦原画和原画下载功能
+
+### 已知问题
+- 部分浏览器在填充模式下拖拽原画可能出现严重卡顿和画面闪烁
+- Chromium类浏览器启用Disable Cache会出现画面闪烁等其他问题
+- 部分移动端浏览器双击原画无法切换到填充模式
+- 部分移动端国产浏览器(夸克)无法下载原画，可能是阉割了blob数据解析，建议更换为[Via](https://viayoo.com/zh-cn/)浏览器
+
+---
+
+<header>
+
 ## [v2.0.2](https://github.com/BuguoguoLoLCreator/lol-skin-explorer)
 
 ###### 2025/05/12

@@ -286,17 +286,32 @@ function _SkinViewer({
   
     // 判断是否为 centered 状态
     const centeredState = centered ? " - 聚焦原画" : " - 原画";
+    
+    // 获取当前需要下载的资源URL
+    const currentUrl = showVideo && vidPath ? 
+      asset(vidPath, patch || "pbe") : 
+      asset(imgPath, patch || "pbe");
+    
+    // 检测URL是否来自img.crawler.qq.com
+    const isQQImage = typeof currentUrl === 'string' && currentUrl.includes('img.crawler.qq.com');
   
     // 如果是视频，则下载视频文件
     if (showVideo && vidPath) {
-      const video = await fetch(asset(vidPath, patch || "pbe"));
+      const video = await fetch(currentUrl);
       const videoBlob = await video.blob();
       fileURL = URL.createObjectURL(videoBlob);
       fileName = `${skin.name}${centeredState}${patch ? " - 版本 " + patch.replaceAll(".", "_") : ""}.webm`;
     } 
     // 如果是图片，则下载图片文件
     else if (imgPath) {
-      const image = await fetch(asset(imgPath, patch || "pbe"));
+      let imageUrl = currentUrl;
+      
+      // 如果是来自img.crawler.qq.com的图片，则使用代理
+      if (isQQImage) {
+        imageUrl = `/api/proxy-image?url=${encodeURIComponent(currentUrl)}`;
+      }
+      
+      const image = await fetch(imageUrl);
       const imageBlob = await image.blob();
       fileURL = URL.createObjectURL(imageBlob);
       fileName = `${skin.name}${centeredState}${patch ? " - 版本 " + patch.replaceAll(".", "_") : ""}.jpg`;

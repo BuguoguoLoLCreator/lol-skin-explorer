@@ -15,7 +15,7 @@ export class Store {
   persistentVars = require("./.cache/persistentVars.json");
 
   constructor() {
-    const { champions, skinlines, universes, skins } = this.patch;
+    const { champions, skinlines, universes, skins, prestigeChromas } = this.patch;
 
     this.fuse = new Fuse(
       champions
@@ -51,6 +51,14 @@ export class Store {
               type: "skin",
             };
           })
+        )
+        .concat(
+          prestigeChromas.map((pc) => ({
+            id: pc.skinId,
+            name: pc.name,
+            image: pc.tilePath || pc.loadScreenPath,
+            type: "prestigechroma",
+          }))
         )
         .map((obj) => ({
           ...obj,

@@ -20,6 +20,7 @@ export class Patch {
   skins = require("./.cache/skins.json");
   universes = require("./.cache/universes.json");
   added = require("./.cache/added.json");
+  prestigeChromas = require("./.cache/prestigechromas.json");
 
   url(path) {
     return `${CDRAGON}/${this.name}${path}`;

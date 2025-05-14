@@ -1,4 +1,5 @@
-.cache
+data/.cache/*
+!data/.cache/changes.json
 
 **/public/workbox-*.js
 **/public/sw.js
@@ -49,3 +50,4 @@ yarn-error.log*
 
 .vscode
 .cursor
+task.md

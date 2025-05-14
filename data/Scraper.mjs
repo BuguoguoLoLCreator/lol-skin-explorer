@@ -6,7 +6,6 @@ import { fileURLToPath } from "url";
 
 // 常量定义
 const CDRAGON = "https://communitydragon.buguoguo.cn";
-const SKIN_SCRAPE_INTERVAL = 3600; // 1小时
 const SUBSTITUTIONS = {
   monkeyking: "wukong",
 };
@@ -42,6 +41,114 @@ const localCache = {
     await fs.writeFile(path.resolve(cachePath, `${key}.json`), JSON.stringify(value));
   }
 };
+
+// 从URL获取ColorfulSkin数据
+async function fetchColorfulSkinData(url) {
+  try {
+    console.log(`[臻彩原画] 开始获取ColorfulSkin数据`);
+    const { data } = await axios.get(url);
+    // 利用正则表达式提取JSON部分
+    const jsonMatch = data.match(/return\s+(\{[\s\S]*\});/);
+    if (jsonMatch && jsonMatch[1]) {
+      // 解析JSON数据
+      const jsonStr = jsonMatch[1].replace(/\\u([0-9a-fA-F]{4})/g, (match, p1) => {
+        return String.fromCharCode(parseInt(p1, 16));
+      });
+      return JSON.parse(jsonStr);
+    }
+    throw new Error('无法从ColorfulSkin URL提取JSON数据');
+  } catch (error) {
+    console.error('[臻彩原画] 获取ColorfulSkin数据失败:', error);
+    return null;
+  }
+}
+
+// 构建完整的图片URL
+function buildImageUrl(instanceId, siteType) {
+  return `https://game.gtimg.cn/images/lol/act/a20230715chromahub/skin/site${siteType}-${instanceId}.jpg`;
+}
+
+// 处理原始图片URL，确保它们是完整的URL
+function processImageUrl(url) {
+  if (!url) return '';
+  // 如果URL以//开头，添加https:
+  if (url.startsWith('//')) {
+    return `https:${url}`;
+  }
+  return url;
+}
+
+// 获取臻彩原画数据
+async function getPrestigeChromas() {
+  try {
+    console.log("[臻彩原画] 开始获取臻彩原画数据...");
+    
+    const champSelectUrl = "https://lol.ams.game.qq.com/lol/autocms/v1/content/LOL/LCU/ChampSelect";
+    console.log(`[臻彩原画] 开始获取ChampSelect数据`);
+    const { data: champSelectResponse } = await axios.get(champSelectUrl);
+    
+    if (!champSelectResponse || !champSelectResponse.chromaSkins) {
+      throw new Error('无法获取chromaSkins数据');
+    }
+    
+    const champSelectData = champSelectResponse;
+    console.log(`[臻彩原画] 成功获取ChampSelect数据，发现 ${champSelectData.chromaSkins.length} 个臻彩原画`);
+    
+    const colorfulSkinUrl = "https://lol.qq.com/act/AutoCMS/publish/LOLAct/ColorfulSkin20230106/ColorfulSkin20230106.js";
+    const colorfulSkinData = await fetchColorfulSkinData(colorfulSkinUrl);
+    
+    if (!colorfulSkinData) {
+      throw new Error('无法解析ColorfulSkin数据');
+    }
+    
+    console.log('[臻彩原画] 成功解析ColorfulSkin数据');
+    
+    // 构建skinId到instanceId的映射
+    const skinIdToInstanceId = {};
+    for (const key in colorfulSkinData) {
+      const item = colorfulSkinData[key];
+      if (item.skinId) {
+        skinIdToInstanceId[item.skinId] = item.instanceId;
+      }
+    }
+    
+    // 合并数据
+    const prestigeChromas = champSelectData.chromaSkins.map(skin => {
+      const instanceId = skinIdToInstanceId[skin.id];
+      return {
+        emblemPath: processImageUrl(skin.emblemPath),
+        skinId: skin.id,
+        name: skin.name,
+        splashPath: processImageUrl(skin.splashPath),
+        // 如果找到了instanceId，则添加相应的图片URL
+        ...(instanceId ? {
+          uncenteredSplashPath: buildImageUrl(instanceId, '3'),
+          loadScreenPath: buildImageUrl(instanceId, '5'),
+          tilePath: buildImageUrl(instanceId, '5')
+        } : {})
+      };
+    });
+    
+    // 为skinId 50022特殊处理，手动指定instanceId
+    const specialSkinIndex = prestigeChromas.findIndex(skin => skin.skinId === 50022);
+    if (specialSkinIndex !== -1) {
+      const specialInstanceId = "d26f0e73-f4f3-481e-bb83-6f24ca824fa5";
+      console.log(`[臻彩原画] 为水晶玫瑰 斯维因 蒂芙尼 50022 指定instanceId: ${specialInstanceId}`);
+      prestigeChromas[specialSkinIndex] = {
+        ...prestigeChromas[specialSkinIndex],
+        uncenteredSplashPath: buildImageUrl(specialInstanceId, '3'),
+        loadScreenPath: buildImageUrl(specialInstanceId, '5'),
+        tilePath: buildImageUrl(specialInstanceId, '4')
+      };
+    }
+    
+    console.log(`[臻彩原画] 成功合并数据，共 ${prestigeChromas.length} 个臻彩原画`);
+    return prestigeChromas;
+  } catch (error) {
+    console.error('[臻彩原画] 获取数据失败:', error);
+    return [];
+  }
+}
 
 // 获取最新英雄数据
 async function getLatestChampions(patch = "pbe") {
@@ -200,6 +307,9 @@ async function main() {
     // 计算新增内容：比较PBE与Latest数据，找出PBE中有但Latest中没有的内容
     const added = await getAdded(champions, skinlines, skins, universes, latestChampions, latestSkinlines, latestSkins, latestUniverses);
 
+    // 获取臻彩原画数据
+    const prestigeChromas = await getPrestigeChromas();
+
     // 保存到本地文件
     await Promise.all([
       // 保存PBE数据
@@ -209,6 +319,8 @@ async function main() {
       localCache.set("universes", universes),
       // 保存新增数据
       localCache.set("added", added),
+      // 保存臻彩原画数据
+      localCache.set("prestigechromas", prestigeChromas)
     ]);
     
     // 更新持久化变量

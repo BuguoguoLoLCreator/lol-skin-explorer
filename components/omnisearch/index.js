@@ -46,6 +46,9 @@ export const Omnisearch = React.forwardRef(({}, ref) => {
     if (type === "skin") {
       route = `/champions/${entity.key}/skins/${entity.id}`;
     }
+    if (type === "prestigechroma") {
+      route = `/prestigechromas/${entity.id}`;
+    }
 
     if (route) {
       router.push(route, route);
@@ -122,6 +125,8 @@ export const Omnisearch = React.forwardRef(({}, ref) => {
                   <span>皮肤系列</span>
                 ) : match.type === "universe" ? (
                   <span>宇宙</span>
+                ) : match.type === "prestigechroma" ? (
+                  <span>臻彩原画</span>
                 ) : (
                   <span>皮肤</span>
                 )}

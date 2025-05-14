@@ -34,20 +34,6 @@ export function dataRoot(patch = "pbe") {
   return `${CDRAGON}/${patch}/plugins/rcp-be-lol-game-data/global/default`;
 }
 
-function PathCorrect(skinPath, patch) {
-  if (patch === 'pbe' || patch === 'latest') {
-    return skinPath;
-  }
-
-  if (skinPath.endsWith('.webm')) return skinPath
-
-  if (isGreaterThan14dot9(patch)) {
-    return handleAsuSkinPath(skinPath);
-  }
-
-  return handleOldPatchSkinPath(skinPath, patch);
-}
-
 function isGreaterThan14dot9(patch) {
   if (['pbe', 'latest'].includes(patch)) return true;
 
@@ -58,8 +44,41 @@ function isGreaterThan14dot9(patch) {
   return minor1 > minor2;
 }
 
+function is15dot10(patch) {
+  if (['pbe', 'latest'].includes(patch)) return true;
+  
+  const [major, minor] = patch.split('.').map(Number);
+  return major === 15 && minor === 10;
+}
+
+function is15dot6(patch) {
+  if (['pbe', 'latest'].includes(patch)) return true;
+  
+  const [major, minor] = patch.split('.').map(Number);
+  return major === 15 && minor === 6;
+}
+
+function is14dot23(patch) {
+  if (['pbe', 'latest'].includes(patch)) return true;
+  
+  const [major, minor] = patch.split('.').map(Number);
+  return major === 14 && minor === 23;
+}
+
 function handleAsuSkinPath(skinPath) {
   return skinPath.replace(/\.asu_[a-zA-Z0-9]+(?=\.jpg$)/i, '');
+}
+
+function handleCareSkinPath(skinPath) {
+  return skinPath.replace(/_care_/i, '_');
+}
+
+function handleLeBlancASUPath(skinPath) {
+  return skinPath.replace(/\.leblanc_rework/i, '');
+}
+
+function handleViktorVGUPath(skinPath) {
+  return skinPath.replace(/\.viktorvgu/i, '');
 }
 
 function handleOldPatchSkinPath(skinPath, patch) {
@@ -81,7 +100,43 @@ function handleOldPatchSkinPath(skinPath, patch) {
   }
 }
 
+function PathCorrect(skinPath, patch) {
+  if (patch === 'pbe' || patch === 'latest') {
+    return skinPath;
+  }
+
+  if (skinPath.endsWith('.webm')) return skinPath
+
+  if (is15dot10(patch)) {
+    return handleCareSkinPath(skinPath);
+  }
+
+  if (is15dot6(patch)) {
+    return handleLeBlancASUPath(skinPath);
+  }
+  
+  if (is14dot23(patch)) {
+    return handleViktorVGUPath(skinPath);
+  }
+
+  if (isGreaterThan14dot9(patch)) {
+    return handleAsuSkinPath(skinPath);
+  }
+
+  return handleOldPatchSkinPath(skinPath, patch);
+}
+
 export function asset(path, patch = "pbe") {
+  // 处理空值情况
+  if (!path) {
+    return '';
+  }
+  
+  // 为臻彩原画等直链图片直接返回地址
+  if (path.startsWith('https://') || path.startsWith('http://')) {
+    return path;
+  }
+  
   const transPath = PathCorrect(path, patch)
   return transPath.replace("/lol-game-data/assets", dataRoot(patch)).toLowerCase();
 }
@@ -153,8 +208,6 @@ export function rarity(skin) {
 
 export function modelviewerUrl(skin, champion) {
   return `https://3d.buguoguo.cn/model-viewer?id=${skin.id}`;
-  // const skinId = splitId(skin.id)[1];
-  // return `https://teemo.gg/model-viewer?game=league-of-legends&type=champions&object=${champion.alias.toLowerCase()}&skinid=${champion.alias.toLowerCase()}-${skinId}`;
 }
 
 export function useLocalStorageState(name, initialValue) {

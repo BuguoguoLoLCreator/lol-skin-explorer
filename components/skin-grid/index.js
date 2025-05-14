@@ -23,7 +23,7 @@ export function SkinGrid({ skins, linkTo }) {
                 unoptimized
                 src={asset(skin.tilePath)}
                 alt={skin.name}
-                style={{ objectFit: "cover" }}
+                style={{ objectFit: "cover", objectPosition: "center top" }}
                 priority
               />
             </span>
