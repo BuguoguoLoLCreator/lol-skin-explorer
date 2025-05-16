@@ -138,7 +138,7 @@ async function getPrestigeChromas() {
         ...prestigeChromas[specialSkinIndex],
         uncenteredSplashPath: buildImageUrl(specialInstanceId, '3'),
         loadScreenPath: buildImageUrl(specialInstanceId, '5'),
-        tilePath: buildImageUrl(specialInstanceId, '4')
+        tilePath: buildImageUrl(specialInstanceId, '5')
       };
     }
     
