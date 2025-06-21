@@ -24,6 +24,10 @@ class Document extends BaseDocument {
                 id="LA_COLLECT"
                 src="//sdk.51.la/js-sdk-pro.min.js?id=K1QCVeoD2crlitVA&ck=K1QCVeoD2crlitVA&autoTrack=true&hashMode=true"
               />
+              <script
+                defer
+                src="https://umami.buguoguo.cn/script.js" data-website-id="523d1d98-74de-4aba-8d43-8878ec0e0b40"
+              />
             </>
           )}
         </Head>
